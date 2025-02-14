@@ -8,19 +8,27 @@ body {
     color: #333;
 }
 
+/* Ensure all text elements use Open Sans */
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Headings */
 h1, h2, h3 {
     font-weight: 700;
 }
 
+/* Paragraphs and lists */
 p, li {
     font-weight: 400;
 }
 
-
+/* Navigation Bar */
 nav {
     background: #222;
     padding: 10px;
     text-align: center;
+    font-family: 'Open Sans', sans-serif; /* Ensure nav uses Open Sans */
 }
 
 nav ul {
@@ -37,8 +45,10 @@ nav ul li a {
     color: white;
     text-decoration: none;
     font-size: 18px;
+    font-family: 'Open Sans', sans-serif; /* Ensure links use Open Sans */
 }
 
+/* Header */
 header {
     text-align: center;
     padding: 50px 20px;
