@@ -15,7 +15,7 @@
         <li><a href="/Research_Notes/index.html">HOME</a></li>
         <li><a href="/Research_Notes/about.html">ABOUT</a></li>
         <li><a href="/Research_Notes/lab-notebook.html">NOTEBOOK</a></li>
-        <li><a href="/Research_Notes/posts.html">UPDATES</a></li> <!-- Change 'UPDATES' to your preferred name -->
+        <li><a href="/Research_Notes/posts.html">UPDATES</a></li>
         <li><a href="/Research_Notes/gallery.html">GALLERY</a></li>
     </ul>
 </nav>
@@ -23,15 +23,20 @@
 <!-- Gallery Section -->
 <section class="gallery-container">
     <h1>Research & Fieldwork Gallery</h1>
-    
+
+    <!-- Images Section -->
+    <h2>Images</h2>
+    <hr>
     <div class="gallery-grid">
-        <!-- Example Images -->
-        <img src="images/gallery/research1.jpg" alt="Research Image 1" class="gallery-item" onclick="openLightbox('images/gallery/research1.jpg')">
-        
-        <img src="images/gallery/research2.jpg" alt="Research Image 2" class="gallery-item" onclick="openLightbox('images/gallery/research2.jpg')">
-        
-        <!-- Example Video (Click to Open in Lightbox) -->
-        <video class="gallery-item" onclick="openLightboxVideo('images/gallery/fieldwork.mp4')" controls>
+        <img src="images/gallery/research1.jpg" alt="Research Image 1" class="gallery-item" onclick="openLightbox(0)">
+        <img src="images/gallery/research2.jpg" alt="Research Image 2" class="gallery-item" onclick="openLightbox(1)">
+    </div>
+
+    <!-- Videos Section -->
+    <h2>Videos</h2>
+    <hr>
+    <div class="gallery-grid">
+        <video class="gallery-item" onclick="openLightbox(2)">
             <source src="images/gallery/fieldwork.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -39,8 +44,10 @@
 </section>
 
 <!-- Lightbox (Hidden by Default) -->
-<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+<div id="lightbox" class="lightbox">
     <span class="close-btn" onclick="closeLightbox()">&times;</span>
+    <span class="prev-btn" onclick="changeMedia(-1)">&#10094;</span>
+    <span class="next-btn" onclick="changeMedia(1)">&#10095;</span>
     <img id="lightbox-img" style="display: none;">
     <video id="lightbox-video" controls style="display: none;">
         <source id="lightbox-video-source" src="" type="video/mp4">
