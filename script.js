@@ -27,31 +27,49 @@ async function loadEntries(file, containerId) {
     });
 }
 
-/* Lightbox for Images */
-function openLightbox(imageSrc) {
-    let lightbox = document.getElementById("lightbox");
-    let lightboxImg = document.getElementById("lightbox-img");
-    let lightboxVideo = document.getElementById("lightbox-video");
+/* Lightbox Variables */
+const mediaItems = [
+    { type: 'image', src: 'images/gallery/research1.jpg' },
+    { type: 'image', src: 'images/gallery/research2.jpg' },
+    { type: 'video', src: 'images/gallery/fieldwork.mp4' }
+];
 
-    lightbox.style.display = "flex";
-    lightboxImg.src = imageSrc;
-    lightboxImg.style.display = "block";
-    lightboxVideo.style.display = "none";
-}
+let currentIndex = 0;
 
-/* Lightbox for Videos */
-function openLightboxVideo(videoSrc) {
+/* Open Lightbox */
+function openLightbox(index) {
+    currentIndex = index;
     let lightbox = document.getElementById("lightbox");
     let lightboxImg = document.getElementById("lightbox-img");
     let lightboxVideo = document.getElementById("lightbox-video");
     let lightboxVideoSource = document.getElementById("lightbox-video-source");
 
     lightbox.style.display = "flex";
-    lightboxVideoSource.src = videoSrc;
-    lightboxVideo.load(); // Refresh video source
-    lightboxVideo.play(); // Auto-play video
-    lightboxVideo.style.display = "block";
-    lightboxImg.style.display = "none";
+
+    if (mediaItems[index].type === 'image') {
+        lightboxImg.src = mediaItems[index].src;
+        lightboxImg.style.display = "block";
+        lightboxVideo.style.display = "none";
+    } else {
+        lightboxVideoSource.src = mediaItems[index].src;
+        lightboxVideo.load();
+        lightboxVideo.play();
+        lightboxVideo.style.display = "block";
+        lightboxImg.style.display = "none";
+    }
+}
+
+/* Change Image/Video in Lightbox */
+function changeMedia(direction) {
+    currentIndex += direction;
+
+    if (currentIndex < 0) {
+        currentIndex = mediaItems.length - 1;
+    } else if (currentIndex >= mediaItems.length) {
+        currentIndex = 0;
+    }
+
+    openLightbox(currentIndex);
 }
 
 /* Close Lightbox */
@@ -62,6 +80,6 @@ function closeLightbox() {
 
     lightbox.style.display = "none";
     lightboxImg.src = "";
-    lightboxVideo.pause(); // Stop video playback
-    lightboxVideo.src = ""; // Reset video source
+    lightboxVideo.pause();
+    lightboxVideo.src = "";
 }
