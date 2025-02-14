@@ -4,7 +4,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f8f8;
+    background-color: #F4F2DE;  /* Updated: Light sandy background */
     color: #333;
 }
 
@@ -25,10 +25,10 @@ p, li {
 
 /* Navigation Bar */
 nav {
-    background: #222;
+    background: #7C9D96; /* Updated: Marine green */
     padding: 10px;
     text-align: center;
-    font-family: 'Open Sans', sans-serif; /* Ensure nav uses Open Sans */
+    font-family: 'Open Sans', sans-serif; 
 }
 
 nav ul {
@@ -42,38 +42,28 @@ nav ul li {
 }
 
 nav ul li a {
-    color: white;
+    color: #E9B384; /* Updated: Coral text */
     text-decoration: none;
     font-size: 18px;
-    font-family: 'Open Sans', sans-serif; /* Ensure links use Open Sans */
-}
-nav ul li a {
-    text-transform: uppercase; /* Makes all nav links uppercase */
     font-weight: bold;
+    text-transform: uppercase;
     letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #FF9D23; /* Updated: Sunset orange on hover */
 }
 
 /* Header */
 header {
     text-align: center;
     padding: 50px 20px;
+    background-color: #7C9D96; /* Updated: Marine green */
+    color: #E9B384; /* Updated: Coral-colored text */
 }
 
-header img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-}
-
-h1 {
-    font-size: 2.5em;
-    margin: 20px 0;
-}
-
-p {
-    font-size: 1.2em;
-}
-
+/* About Page */
 .about-container {
     display: flex;
     align-items: center;
@@ -121,9 +111,9 @@ p {
     text-decoration: none;
     padding: 12px 20px;
     margin-right: 10px;
-    border: 2px solid #ff5733 !important; /* Force color */
-    color: #fff !important; /* Ensure text color */
-    background-color: #ff5733 !important; /* Force button color */
+    border: 2px solid #E9B384 !important; /* Updated: Coral border */
+    color: white !important;
+    background-color: #E9B384 !important; /* Updated: Coral button */
     font-size: 16px;
     font-weight: bold;
     transition: 0.3s;
@@ -131,11 +121,10 @@ p {
 }
 
 .cta-button:hover {
-    background-color: #fff !important;
-    color: #ff5733 !important;
-    border: 2px solid #ff5733 !important;
+    background-color: #FF9D23 !important; /* Updated: Sunset orange on hover */
+    border: 2px solid #FF9D23 !important;
+    color: white !important;
 }
-
 
 /* GALLERY PAGE */
 .gallery-container {
