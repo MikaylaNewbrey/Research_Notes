@@ -26,3 +26,15 @@ async function loadEntries(file, containerId) {
         container.appendChild(div);
     });
 }
+
+function openLightbox(imageSrc) {
+    let lightbox = document.getElementById("lightbox");
+    let lightboxImg = document.getElementById("lightbox-img");
+
+    lightbox.style.display = "flex";
+    lightboxImg.src = imageSrc;
+}
+
+function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+}
