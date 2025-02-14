@@ -47,6 +47,11 @@ nav ul li a {
     font-size: 18px;
     font-family: 'Open Sans', sans-serif; /* Ensure links use Open Sans */
 }
+nav ul li a {
+    text-transform: uppercase; /* Makes all nav links uppercase */
+    font-weight: bold;
+    letter-spacing: 1px;
+}
 
 /* Header */
 header {
