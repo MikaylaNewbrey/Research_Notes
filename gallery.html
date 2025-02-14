@@ -8,6 +8,8 @@
     <script defer src="script.js"></script>
 </head>
 <body>
+
+<!-- Navigation -->
 <nav>
     <ul>
         <li><a href="/Research_Notes/index.html">HOME</a></li>
@@ -17,28 +19,33 @@
         <li><a href="/Research_Notes/gallery.html">GALLERY</a></li>
     </ul>
 </nav>
-    <section class="gallery-container">
-        <h1>Research & Fieldwork Gallery</h1>
-        
-        <div class="gallery-grid">
-            <!-- Example Image -->
-            <img src="images/gallery/research1.jpg" alt="Research Image 1" class="gallery-item" onclick="openLightbox('images/gallery/research1.jpg')">
-            
-            <img src="images/gallery/research2.jpg" alt="Research Image 2" class="gallery-item" onclick="openLightbox('images/gallery/research2.jpg')">
-            
-            <!-- Example Video -->
-            <video class="gallery-item" controls>
-                <source src="images/gallery/fieldwork.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-    </section>
 
-    <!-- Lightbox (Hidden by Default) -->
-    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-        <span class="close-btn">&times;</span>
-        <img id="lightbox-img">
+<!-- Gallery Section -->
+<section class="gallery-container">
+    <h1>Research & Fieldwork Gallery</h1>
+    
+    <div class="gallery-grid">
+        <!-- Example Images -->
+        <img src="images/gallery/research1.jpg" alt="Research Image 1" class="gallery-item" onclick="openLightbox('images/gallery/research1.jpg')">
+        
+        <img src="images/gallery/research2.jpg" alt="Research Image 2" class="gallery-item" onclick="openLightbox('images/gallery/research2.jpg')">
+        
+        <!-- Example Video (Click to Open in Lightbox) -->
+        <video class="gallery-item" onclick="openLightboxVideo('images/gallery/fieldwork.mp4')" controls>
+            <source src="images/gallery/fieldwork.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
+</section>
+
+<!-- Lightbox (Hidden by Default) -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="close-btn" onclick="closeLightbox()">&times;</span>
+    <img id="lightbox-img" style="display: none;">
+    <video id="lightbox-video" controls style="display: none;">
+        <source id="lightbox-video-source" src="" type="video/mp4">
+    </video>
+</div>
 
 </body>
 </html>
