@@ -27,14 +27,41 @@ async function loadEntries(file, containerId) {
     });
 }
 
+/* Lightbox for Images */
 function openLightbox(imageSrc) {
     let lightbox = document.getElementById("lightbox");
     let lightboxImg = document.getElementById("lightbox-img");
+    let lightboxVideo = document.getElementById("lightbox-video");
 
     lightbox.style.display = "flex";
     lightboxImg.src = imageSrc;
+    lightboxImg.style.display = "block";
+    lightboxVideo.style.display = "none";
 }
 
+/* Lightbox for Videos */
+function openLightboxVideo(videoSrc) {
+    let lightbox = document.getElementById("lightbox");
+    let lightboxImg = document.getElementById("lightbox-img");
+    let lightboxVideo = document.getElementById("lightbox-video");
+    let lightboxVideoSource = document.getElementById("lightbox-video-source");
+
+    lightbox.style.display = "flex";
+    lightboxVideoSource.src = videoSrc;
+    lightboxVideo.load(); // Refresh video source
+    lightboxVideo.play(); // Auto-play video
+    lightboxVideo.style.display = "block";
+    lightboxImg.style.display = "none";
+}
+
+/* Close Lightbox */
 function closeLightbox() {
-    document.getElementById("lightbox").style.display = "none";
+    let lightbox = document.getElementById("lightbox");
+    let lightboxImg = document.getElementById("lightbox-img");
+    let lightboxVideo = document.getElementById("lightbox-video");
+
+    lightbox.style.display = "none";
+    lightboxImg.src = "";
+    lightboxVideo.pause(); // Stop video playback
+    lightboxVideo.src = ""; // Reset video source
 }
