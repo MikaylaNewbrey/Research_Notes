@@ -121,9 +121,9 @@ p {
     text-decoration: none;
     padding: 12px 20px;
     margin-right: 10px;
-    border: 2px solid #ff5733; /* Updated border color */
-    color: #fff;
-    background-color: #ff5733; /* Updated button color */
+    border: 2px solid #ff5733 !important; /* Force color */
+    color: #fff !important; /* Ensure text color */
+    background-color: #ff5733 !important; /* Force button color */
     font-size: 16px;
     font-weight: bold;
     transition: 0.3s;
@@ -131,15 +131,11 @@ p {
 }
 
 .cta-button:hover {
-    background-color: #fff;
-    color: #ff5733;
-    border: 2px solid #ff5733;
+    background-color: #fff !important;
+    color: #ff5733 !important;
+    border: 2px solid #ff5733 !important;
 }
-/* CV SECTION */
-.cv-container {
-    text-align: center;
-    margin-top: 50px;
-}
+
 
 /* GALLERY PAGE */
 .gallery-container {
