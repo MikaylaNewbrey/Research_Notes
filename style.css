@@ -4,8 +4,8 @@ body {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #F4F2DE;  /* Updated: Light sandy background */
-    color: #333;
+    background-color: #FFFFFF; /* Updated: White background */
+    color: #000000; /* Updated: Black text for modern feel */
 }
 
 /* Ensure all text elements use Open Sans */
@@ -25,10 +25,10 @@ p, li {
 
 /* Navigation Bar */
 nav {
-    background: #7C9D96; /* Updated: Marine green */
+    background: transparent; /* Matches background */
     padding: 10px;
     text-align: center;
-    font-family: 'Open Sans', sans-serif; 
+    font-family: 'Open Sans', sans-serif;
 }
 
 nav ul {
@@ -42,7 +42,7 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #E9B384; /* Updated: Coral text */
+    color: #16a085; /* Updated: Teal */
     text-decoration: none;
     font-size: 18px;
     font-weight: bold;
@@ -51,16 +51,29 @@ nav ul li a {
     transition: color 0.3s ease;
 }
 
-nav ul li a:hover {
-    color: #FF9D23; /* Updated: Sunset orange on hover */
+nav ul li a:hover,
+nav ul li a:active {
+    color: #f39c12; /* Updated: Golden orange */
 }
 
-/* Header */
-header {
+/* Splash Page Styling */
+.splash-container {
+    position: relative;
     text-align: center;
-    padding: 50px 20px;
-    background-color: #7C9D96; /* Updated: Marine green */
-    color: #E9B384; /* Updated: Coral-colored text */
+    height: 100vh; /* Full screen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('images/shoreline-monterey-bay-960.jpg') no-repeat center center/cover;
+}
+
+.splash-text {
+    background: rgba(255, 255, 255, 0.8); /* Light overlay */
+    padding: 20px 40px;
+    border-radius: 10px;
+    font-size: 2em;
+    font-weight: bold;
+    color: #000000;
 }
 
 /* About Page */
@@ -89,6 +102,12 @@ header {
     border-radius: 10px;
 }
 
+/* Styling for "Hey There!" */
+.about-text h1 {
+    color: #117a65 !important; /* Updated: Dark teal */
+    font-size: 3em !important; /* Updated: Larger font */
+}
+
 /* RESPONSIVE DESIGN */
 @media (max-width: 900px) {
     .about-container {
@@ -111,9 +130,9 @@ header {
     text-decoration: none;
     padding: 12px 20px;
     margin-right: 10px;
-    border: 2px solid #E9B384 !important; /* Updated: Coral border */
+    border: 2px solid #16a085 !important; /* Updated: Teal */
     color: white !important;
-    background-color: #E9B384 !important; /* Updated: Coral button */
+    background-color: #16a085 !important; /* Updated: Teal button */
     font-size: 16px;
     font-weight: bold;
     transition: 0.3s;
@@ -121,8 +140,8 @@ header {
 }
 
 .cta-button:hover {
-    background-color: #FF9D23 !important; /* Updated: Sunset orange on hover */
-    border: 2px solid #FF9D23 !important;
+    background-color: #f39c12 !important; /* Updated: Golden orange hover */
+    border: 2px solid #f39c12 !important;
     color: white !important;
 }
 
