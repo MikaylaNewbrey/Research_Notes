@@ -36,7 +36,6 @@ const mediaItems = [
 
 let currentIndex = 0;
 
-/* Open Lightbox */
 function openLightbox(index) {
     currentIndex = index;
     let lightbox = document.getElementById("lightbox");
@@ -53,26 +52,19 @@ function openLightbox(index) {
     } else {
         lightboxVideoSource.src = mediaItems[index].src;
         lightboxVideo.load();
-        lightboxVideo.play();
         lightboxVideo.style.display = "block";
         lightboxImg.style.display = "none";
     }
 }
 
-/* Change Image/Video in Lightbox */
 function changeMedia(direction) {
     currentIndex += direction;
-
-    if (currentIndex < 0) {
-        currentIndex = mediaItems.length - 1;
-    } else if (currentIndex >= mediaItems.length) {
-        currentIndex = 0;
-    }
+    if (currentIndex < 0) currentIndex = mediaItems.length - 1;
+    else if (currentIndex >= mediaItems.length) currentIndex = 0;
 
     openLightbox(currentIndex);
 }
 
-/* Close Lightbox */
 function closeLightbox() {
     let lightbox = document.getElementById("lightbox");
     let lightboxImg = document.getElementById("lightbox-img");
