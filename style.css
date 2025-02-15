@@ -268,3 +268,23 @@ nav ul li a:active {
 .close-btn:hover {
     color: #f39c12; /* Updated: Orange hover */
 }
+/* ✅ Modernized Search Bar ✅ */
+#search {
+    width: 100%;
+    max-width: 400px; /* Restrict width */
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 2px solid #16a085; /* Teal border */
+    border-radius: 25px; /* Rounded edges */
+    outline: none;
+    transition: 0.3s ease-in-out;
+    background-color: #f8f8f8; /* Light background */
+    color: #000; /* Black text */
+}
+
+/* ✅ Change Border & Background on Focus ✅ */
+#search:focus {
+    border-color: #f39c12; /* Orange focus */
+    background-color: #fff; /* White background */
+    box-shadow: 0px 0px 10px rgba(243, 156, 18, 0.4); /* Soft glow */
+}
