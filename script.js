@@ -91,3 +91,16 @@ function closeLightbox() {
     lightboxVideo.pause();
     lightboxVideo.src = "";
 }
+function filterEntries() {
+    let input = document.getElementById("search").value.toLowerCase();
+    let entries = document.querySelectorAll(".entry");
+
+    entries.forEach(entry => {
+        let text = entry.innerText.toLowerCase();
+        if (text.includes(input)) {
+            entry.style.display = "block";
+        } else {
+            entry.style.display = "none";
+        }
+    });
+}
