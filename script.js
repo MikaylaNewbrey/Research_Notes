@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     if (document.getElementById("entries")) {
         loadMarkdownFiles("Notebook", "entries");
     }
@@ -37,9 +37,9 @@ async function loadMarkdownFiles(folder, containerId) {
                 let markdownContent = await contentResponse.text();
 
                 // ✅ Extract metadata from the Markdown file
-                let titleMatch = markdownContent.match(/title:\s*"(.+?)"/);
-                let dateMatch = markdownContent.match(/date:\s*"(.+?)"/);
-                let summaryMatch = markdownContent.match(/summary:\s*"(.+?)"/);
+                let titleMatch = markdownContent.match(/title:\s*["'](.+?)["']/);
+                let dateMatch = markdownContent.match(/date:\s*["'](.+?)["']/);
+                let summaryMatch = markdownContent.match(/summary:\s*["'](.+?)["']/);
 
                 let title = titleMatch ? titleMatch[1] : file.name.replace(".md", "");
                 let date = dateMatch ? dateMatch[1] : "Unknown Date";
@@ -78,12 +78,15 @@ function openPost(title, content) {
     modalTitle.textContent = title; // ✅ Uses extracted title
     modalContent.innerHTML = marked.parse(content); // ✅ Render Markdown content
 
-    modal.style.display = "flex"; // ✅ Enlarged modal, centered
+    modal.style.display = "flex"; // ✅ Ensure modal is visible
+    modal.style.zIndex = "1000"; // ✅ Keep modal above everything
+    modal.focus(); // ✅ Ensure it can be interacted with
 }
 
 /* ✅ Close Modal Pop-Up ✅ */
 function closePost() {
-    document.getElementById("post-modal").style.display = "none";
+    let modal = document.getElementById("post-modal");
+    modal.style.display = "none";
 }
 
 /* ✅ Search Filter for Lab Notebook & Updates ✅ */
