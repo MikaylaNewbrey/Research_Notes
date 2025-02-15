@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /*******************************************
- * 2. Load Markdown Files from GitHub (Fixing Updates)
+ * 2. Load Markdown Files from GitHub (Fixing Modal)
  *******************************************/
 async function loadMarkdownFiles(folder, containerId) {
   let container = document.getElementById(containerId);
@@ -52,6 +52,7 @@ async function loadMarkdownFiles(folder, containerId) {
         // Create post item
         let entryDiv = document.createElement("div");
         entryDiv.classList.add("post-item");
+        entryDiv.dataset.title = title;
         entryDiv.dataset.content = markdownContent;
 
         entryDiv.innerHTML = `
@@ -61,8 +62,7 @@ async function loadMarkdownFiles(folder, containerId) {
           <span class="post-read-more">→</span>
         `;
 
-        // Clicking opens post modal
-        entryDiv.addEventListener("click", () => openPost(title, entryDiv.dataset.content));
+        entryDiv.addEventListener("click", () => openPost(title, markdownContent)); // ✅ Fixing modal event listener
         container.appendChild(entryDiv);
       }
     }
@@ -73,7 +73,38 @@ async function loadMarkdownFiles(folder, containerId) {
 }
 
 /*******************************************
- * 3. Lightbox for Images & Videos
+ * 3. Fixing Notebook Modal
+ *******************************************/
+function openPost(title, content) {
+  let modal = document.getElementById("post-modal");
+  let modalTitle = document.getElementById("modal-title");
+  let modalContent = document.getElementById("modal-content");
+
+  if (!modal) {
+    console.error("Modal not found in the document.");
+    return;
+  }
+
+  modalTitle.textContent = title;
+  modalContent.innerHTML = marked.parse(content);
+
+  modal.style.display = "flex";
+  modal.style.justifyContent = "center";
+  modal.style.alignItems = "center";
+  modal.style.zIndex = "1000";
+  modal.focus();
+}
+
+// Close Post Modal
+function closePost() {
+  let modal = document.getElementById("post-modal");
+  if (modal) {
+    modal.style.display = "none";
+  }
+}
+
+/*******************************************
+ * 4. Lightbox for Images & Videos
  *******************************************/
 let currentIndex = 0;
 const galleryItems = [
