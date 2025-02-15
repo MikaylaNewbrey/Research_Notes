@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         loadMarkdownFiles("Posts", "posts-container");
     }
     if (document.getElementById("gallery")) {
-        loadGallery();
+        fetchGalleryImages(); // ✅ Auto-fetch images from Google Drive
     }
 });
 
@@ -34,12 +34,10 @@ async function loadMarkdownFiles(folder, containerId) {
         }
 
         files.forEach(async (file) => {
-            // ✅ Ignore "Template.md" files from appearing
             if (file.name.endsWith(".md") && file.name.toLowerCase() !== "template.md") {
                 let contentResponse = await fetch(file.download_url);
                 let markdownContent = await contentResponse.text();
 
-                // ✅ Extract metadata from the Markdown file
                 let titleMatch = markdownContent.match(/title:\s*["'](.+?)["']/);
                 let dateMatch = markdownContent.match(/date:\s*["'](.+?)["']/);
                 let summaryMatch = markdownContent.match(/summary:\s*["'](.+?)["']/);
@@ -51,10 +49,8 @@ async function loadMarkdownFiles(folder, containerId) {
                 let entryDiv = document.createElement("div");
                 entryDiv.classList.add("post-item");
 
-                // ✅ Store full content in a dataset for retrieval
                 entryDiv.dataset.content = markdownContent;
 
-                // ✅ Create modern post layout with title, date, summary, and arrow
                 entryDiv.innerHTML = `
                     <h2 class="post-title">${title}</h2>
                     <p class="post-date">${date}</p>
@@ -78,14 +74,14 @@ function openPost(title, content) {
     let modalTitle = document.getElementById("modal-title");
     let modalContent = document.getElementById("modal-content");
 
-    modalTitle.textContent = title; // ✅ Uses extracted title
-    modalContent.innerHTML = marked.parse(content); // ✅ Render Markdown content
+    modalTitle.textContent = title;
+    modalContent.innerHTML = marked.parse(content);
 
-    modal.style.display = "flex"; // ✅ Ensure modal is visible
-    modal.style.justifyContent = "center"; // ✅ Center modal on screen
+    modal.style.display = "flex";
+    modal.style.justifyContent = "center";
     modal.style.alignItems = "center"; 
-    modal.style.zIndex = "1000"; // ✅ Keep modal above everything
-    modal.focus(); // ✅ Ensure it can be interacted with
+    modal.style.zIndex = "1000";
+    modal.focus();
 }
 
 /* ✅ Close Modal Pop-Up ✅ */
@@ -109,35 +105,38 @@ function filterEntries() {
     });
 }
 
-/* ✅ Google Drive Gallery Integration ✅ */
-    const galleryItems = [
-    { type: "image", id: "1o-cMnKZoqqr25Wjj6HUqjnX-9F-SCxFW", name: "Remus_Wellfleet" }
-];
+/* ✅ Google Drive Gallery Integration - Auto Fetch ✅ */
+const driveFolderId = "1umgZLdQFNL-IxmPrPKO5uR9cEDFZ6TdA"; // Your Google Drive folder ID
+const apiKey = "AIzaSyCUv2_rp9yVAPBfwJpkzEyvYwwbMJkB_Ts"; // Replace this with your actual API Key
 
-function loadGallery() {
-    let imageGallery = document.getElementById("image-gallery");
-    let videoGallery = document.getElementById("video-gallery");
+async function fetchGalleryImages() {
+    let galleryContainer = document.getElementById("gallery");
 
-    galleryItems.forEach((item, index) => {
-        let element;
-        let url = `https://drive.google.com/uc?export=view&id=${item.id}`;
+    try {
+        const response = await fetch(`https://www.googleapis.com/drive/v3/files?q='${driveFolderId}'+in+parents&key=${apiKey}`);
+        const data = await response.json();
 
-        if (item.type === "image") {
-            element = document.createElement("img");
+        if (!data.files) {
+            galleryContainer.innerHTML = "<p>No images found.</p>";
+            return;
+        }
+
+        data.files.forEach((file, index) => {
+            let url = `https://drive.google.com/uc?export=view&id=${file.id}`;
+            let element = document.createElement("img");
             element.src = url;
+            element.alt = file.name;
             element.classList.add("gallery-item");
             element.onclick = () => openLightbox(index);
-            imageGallery.appendChild(element);
-        } else if (item.type === "video") {
-            element = document.createElement("iframe");
-            element.src = `https://drive.google.com/file/d/${item.id}/preview`;
-            element.width = "640";
-            element.height = "360";
-            element.classList.add("gallery-item");
-            videoGallery.appendChild(element);
-        }
-    });
+            galleryContainer.appendChild(element);
+        });
+    } catch (error) {
+        console.error("Error fetching images:", error);
+        galleryContainer.innerHTML = "<p>Error loading gallery.</p>";
+    }
 }
+
+document.addEventListener("DOMContentLoaded", fetchGalleryImages);
 
 /* ✅ Lightbox Functionality ✅ */
 let currentIndex = 0;
@@ -146,41 +145,18 @@ function openLightbox(index) {
     currentIndex = index;
     let lightbox = document.getElementById("lightbox");
     let lightboxImg = document.getElementById("lightbox-img");
-    let lightboxVideo = document.getElementById("lightbox-video");
-    let lightboxVideoSource = document.getElementById("lightbox-video-source");
-
-    lightbox.style.display = "flex";
 
     let item = galleryItems[index];
     let url = `https://drive.google.com/uc?export=view&id=${item.id}`;
 
-    if (item.type === "image") {
-        lightboxImg.src = url;
-        lightboxImg.style.display = "block";
-        lightboxVideo.style.display = "none";
-    } else {
-        lightboxVideoSource.src = `https://drive.google.com/file/d/${item.id}/preview`;
-        lightboxVideo.load();
-        lightboxVideo.style.display = "block";
-        lightboxImg.style.display = "none";
-    }
-}
-
-function changeMedia(direction) {
-    currentIndex += direction;
-    if (currentIndex < 0) currentIndex = galleryItems.length - 1;
-    else if (currentIndex >= galleryItems.length) currentIndex = 0;
-
-    openLightbox(currentIndex);
+    lightboxImg.src = url;
+    lightbox.style.display = "flex";
 }
 
 function closeLightbox() {
     let lightbox = document.getElementById("lightbox");
     let lightboxImg = document.getElementById("lightbox-img");
-    let lightboxVideo = document.getElementById("lightbox-video");
 
     lightbox.style.display = "none";
     lightboxImg.src = "";
-    lightboxVideo.pause();
-    lightboxVideo.src = "";
 }
