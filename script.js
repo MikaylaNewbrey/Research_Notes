@@ -103,3 +103,28 @@ function filterEntries() {
         }
     });
 }
+
+const galleryItems = [
+    { type: "image", id: "IMAGE_FILE_ID" },
+    { type: "video", id: "VIDEO_FILE_ID" }
+];
+
+function loadGallery() {
+    let galleryContainer = document.getElementById("gallery");
+
+    galleryItems.forEach(item => {
+        let element;
+        if (item.type === "image") {
+            element = document.createElement("img");
+            element.src = `https://drive.google.com/uc?export=view&id=${item.id}`;
+        } else if (item.type === "video") {
+            element = document.createElement("iframe");
+            element.src = `https://drive.google.com/file/d/${item.id}/preview`;
+            element.width = "640";
+            element.height = "480";
+        }
+        galleryContainer.appendChild(element);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", loadGallery);
