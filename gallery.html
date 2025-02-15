@@ -6,6 +6,51 @@
     <title>Gallery</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
+    <style>
+        /* ✅ Ensures all images in the gallery are the same size */
+        .gallery-item {
+            width: 250px; /* Adjust as needed */
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* ✅ Lightbox styling */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .lightbox img {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 10px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
@@ -28,26 +73,22 @@
     <h2>Images</h2>
     <hr>
     <div class="gallery-grid" id="image-gallery">
-        <!-- ✅ Imgur Images (Click to View in Lightbox) -->
-        <a href="https://imgur.com/Ok2lGQH" target="_blank">
-            <img 
-                src="https://i.imgur.com/Ok2lGQH.jpg" 
-                alt="Remus Wellfleet" 
-                class="gallery-item"
-                onclick="openLightboxWithImage('https://i.imgur.com/Ok2lGQH.jpg')"
-            />
-        </a>
+        <!-- ✅ Imgur Images with Lightbox -->
+        <img 
+            src="https://i.imgur.com/Ok2lGQH.jpg" 
+            alt="Remus Wellfleet" 
+            class="gallery-item"
+            onclick="openLightbox('https://i.imgur.com/Ok2lGQH.jpg')"
+        />
 
-        <a href="https://imgur.com/YOUR_IMAGE_ID" target="_blank">
-            <img 
-                src="https://i.imgur.com/YOUR_IMAGE_ID.jpg" 
-                alt="Image Description 2" 
-                class="gallery-item"
-                onclick="openLightboxWithImage('https://i.imgur.com/YOUR_IMAGE_ID.jpg')"
-            />
-        </a>
+        <img 
+            src="https://i.imgur.com/YOUR_IMAGE_ID.jpg" 
+            alt="Image Description 2" 
+            class="gallery-item"
+            onclick="openLightbox('https://i.imgur.com/YOUR_IMAGE_ID.jpg')"
+        />
 
-        <!-- Add more Imgur images as needed -->
+        <!-- Add more images as needed -->
     </div>
 
     <!-- Videos Section -->
@@ -70,14 +111,26 @@
     </div>
 </section>
 
-<!-- Lightbox (Hidden by Default) -->
-<div id="lightbox" class="lightbox" style="display:none;">
+<!-- ✅ Lightbox (Hidden by Default) -->
+<div id="lightbox" class="lightbox">
     <span class="close-btn" onclick="closeLightbox()">&times;</span>
-    <img id="lightbox-img" style="display: none;" />
-    <video id="lightbox-video" controls style="display: none;">
-        <source id="lightbox-video-source" src="" type="video/mp4">
-    </video>
+    <img id="lightbox-img" />
 </div>
+
+<script>
+    /* ✅ Lightbox functionality */
+    function openLightbox(imageUrl) {
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+        
+        lightbox.style.display = "flex";
+        lightboxImg.src = imageUrl;
+    }
+
+    function closeLightbox() {
+        document.getElementById("lightbox").style.display = "none";
+    }
+</script>
 
 </body>
 </html>
