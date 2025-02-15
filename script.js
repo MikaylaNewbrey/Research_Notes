@@ -48,14 +48,18 @@ async function loadMarkdownFiles(folder, containerId) {
                 let entryDiv = document.createElement("div");
                 entryDiv.classList.add("post-item");
 
+                // ✅ Store full content in a dataset for retrieval
+                entryDiv.dataset.content = markdownContent;
+
                 // ✅ Create modern post layout with title, date, summary, and arrow
                 entryDiv.innerHTML = `
-                    <h2 class="post-title" onclick="openPost('${title}', \`${markdownContent}\`)">${title}</h2>
+                    <h2 class="post-title">${title}</h2>
                     <p class="post-date">${date}</p>
                     <p class="post-summary">${summary}</p>
                     <span class="post-read-more">→</span>
                 `;
 
+                entryDiv.addEventListener("click", () => openPost(title, entryDiv.dataset.content));
                 container.appendChild(entryDiv);
             }
         });
@@ -77,6 +81,7 @@ function openPost(title, content) {
     modal.style.display = "flex"; // ✅ Enlarged modal, centered
 }
 
+/* ✅ Close Modal Pop-Up ✅ */
 function closePost() {
     document.getElementById("post-modal").style.display = "none";
 }
