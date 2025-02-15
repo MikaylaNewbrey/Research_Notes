@@ -1,33 +1,48 @@
 document.addEventListener("DOMContentLoaded", function() {
     if (document.getElementById("entries")) {
-        loadEntries("entries.json", "entries");
+        loadMarkdownFiles("Notebook", "entries");
     }
     if (document.getElementById("posts")) {
-        loadEntries("posts.json", "posts");
+        loadMarkdownFiles("Posts", "posts");
     }
 });
 
-async function loadEntries(file, containerId) {
-    const response = await fetch(file);
-    const entries = await response.json();
-
+/* ✅ Function to Load Markdown Files from GitHub ✅ */
+async function loadMarkdownFiles(folder, containerId) {
     let container = document.getElementById(containerId);
     container.innerHTML = "";
 
-    entries.forEach(entry => {
-        let div = document.createElement("div");
-        div.classList.add("entry");
-        div.innerHTML = `
-            <h2>${entry.title}</h2>
-            <p><strong>Date:</strong> ${entry.date}</p>
-            <p><strong>Tags:</strong> ${entry.tags.join(", ")}</p>
-            <p>${entry.content}</p>
-        `;
-        container.appendChild(div);
-    });
+    try {
+        // Fetch file list from GitHub API
+        const repoOwner = "MikaylaNewbrey";
+        const repoName = "Research_Notes";
+        const branch = "main";
+
+        const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folder}`);
+        const files = await response.json();
+
+        for (let file of files) {
+            if (file.name.endsWith(".md")) {
+                let contentResponse = await fetch(file.download_url);
+                let markdownContent = await contentResponse.text();
+
+                let entryDiv = document.createElement("div");
+                entryDiv.classList.add("entry");
+
+                entryDiv.innerHTML = `
+                    <h2>${file.name.replace(".md", "")}</h2>
+                    <div class="markdown-content">${marked.parse(markdownContent)}</div>
+                `;
+
+                container.appendChild(entryDiv);
+            }
+        }
+    } catch (error) {
+        console.error("Error loading Markdown files:", error);
+    }
 }
 
-/* Lightbox Variables */
+/* ✅ Lightbox Variables for Image & Video Gallery ✅ */
 const mediaItems = [
     { type: 'image', src: 'images/gallery/research1.jpg' },
     { type: 'image', src: 'images/gallery/research2.jpg' },
@@ -52,6 +67,7 @@ function openLightbox(index) {
     } else {
         lightboxVideoSource.src = mediaItems[index].src;
         lightboxVideo.load();
+        lightboxVideo.play(); // ✅ Auto-play video when opened
         lightboxVideo.style.display = "block";
         lightboxImg.style.display = "none";
     }
