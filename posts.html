@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Posts</title>
+    <title>Updates</title> <!-- Changed to match nav -->
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
 </head>
@@ -13,13 +14,15 @@
         <li><a href="/Research_Notes/index.html">HOME</a></li>
         <li><a href="/Research_Notes/about.html">ABOUT</a></li>
         <li><a href="/Research_Notes/lab-notebook.html">NOTEBOOK</a></li>
-        <li><a href="/Research_Notes/posts.html">UPDATES</a></li> <!-- Change 'UPDATES' to your preferred name -->
+        <li><a href="/Research_Notes/posts.html" class="active">UPDATES</a></li> <!-- Keeps highlight on this page -->
         <li><a href="/Research_Notes/gallery.html">GALLERY</a></li>
     </ul>
 </nav>
-    <h1>Posts</h1>
-    <input type="text" id="search" placeholder="Search posts by keyword or date" onkeyup="filterEntries()">
+
+    <h1>Updates</h1> <!-- Changed to match navigation -->
+    <input type="text" id="search" placeholder="Search updates by keyword or date" onkeyup="filterEntries()">
     <div id="posts"></div>
 
 </body>
 </html>
+
