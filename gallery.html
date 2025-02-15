@@ -27,23 +27,33 @@
     <!-- Images Section -->
     <h2>Images</h2>
     <hr>
-    <div class="gallery-grid" id="image-gallery">
-        <!-- Images will be dynamically added from script.js -->
+    <div class="gallery-grid">
+        <img 
+            src="https://drive.google.com/uc?export=view&id=1o-cMnKZoqqr25Wjj6HUqjnX-9F-SCxFW" 
+            alt="Remus_Wellfleet" 
+            class="gallery-item"
+            onclick="openLightboxWithImage('https://drive.google.com/uc?export=view&id=1o-cMnKZoqqr25Wjj6HUqjnX-9F-SCxFW')"
+        />
+
+        <!-- Add more images here -->
     </div>
 
     <!-- Videos Section -->
     <h2>Videos</h2>
     <hr>
-    <div class="gallery-grid" id="video-gallery">
-        <!-- Videos will be dynamically added from script.js -->
+    <div class="gallery-grid">
+        <iframe 
+            src="https://drive.google.com/file/d/YOUR_VIDEO_FILE_ID/preview" 
+            width="640" 
+            height="360" 
+            class="gallery-item"
+        ></iframe>
     </div>
 </section>
 
 <!-- Lightbox (Hidden by Default) -->
 <div id="lightbox" class="lightbox" style="display:none;">
     <span class="close-btn" onclick="closeLightbox()">&times;</span>
-    <span class="prev-btn" onclick="changeMedia(-1)">&#10094;</span>
-    <span class="next-btn" onclick="changeMedia(1)">&#10095;</span>
     <img id="lightbox-img" style="display: none;" />
     <video id="lightbox-video" controls style="display: none;">
         <source id="lightbox-video-source" src="" type="video/mp4">
