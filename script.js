@@ -31,7 +31,8 @@ async function loadMarkdownFiles(folder, containerId) {
         }
 
         files.forEach(async (file) => {
-            if (file.name.endsWith(".md")) {
+            // ✅ Ignore "Template.md" files from appearing
+            if (file.name.endsWith(".md") && file.name.toLowerCase() !== "template.md") {
                 let contentResponse = await fetch(file.download_url);
                 let markdownContent = await contentResponse.text();
 
@@ -125,7 +126,7 @@ function openPost(title, content) {
     modalTitle.textContent = title.replace(".md", ""); // Format title
     modalContent.innerHTML = marked.parse(content); // Render markdown
 
-    modal.style.display = "block";
+    modal.style.display = "flex"; // ✅ Enlarged modal
 }
 
 function closePost() {
