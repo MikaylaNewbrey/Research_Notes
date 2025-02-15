@@ -1,4 +1,4 @@
-
+--- title: "Notebook Entry Title" date: "2025-02-14" summary: "A brief description of this notebook entry." ---
 
 # DNA Extraction from Marine Samples  
 
