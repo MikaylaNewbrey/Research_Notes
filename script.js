@@ -8,9 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
   if (document.getElementById("posts-container")) {
     loadMarkdownFiles("Posts", "posts-container");
   }
-  if (document.getElementById("image-gallery")) {
-    loadGallery();
-  }
 });
 
 /*******************************************
@@ -104,41 +101,27 @@ function closePost() {
 }
 
 /*******************************************
- * 4. Lightbox for Images & Videos
+ * 4. Lightbox Functionality for Manual Gallery
  *******************************************/
-let currentIndex = 0;
-const galleryItems = [
-  { type: "image", id: "1o-cMnKZoqqr25Wjj6HUqjnX-9F-SCxFW", name: "Remus Wellfleet" },
-  { type: "image", id: "YOUR_IMAGE_FILE_ID_2", name: "Another Image" },
-  { type: "video", id: "YOUR_VIDEO_FILE_ID", name: "Research Video" }
-];
+function openLightboxWithImage(imageUrl) {
+    let lightbox = document.getElementById("lightbox");
+    let lightboxImg = document.getElementById("lightbox-img");
+    let lightboxVideo = document.getElementById("lightbox-video");
 
-function loadGallery() {
-  let imageGallery = document.getElementById("image-gallery");
-  let videoGallery = document.getElementById("video-gallery");
+    lightboxImg.src = imageUrl;
+    lightboxImg.style.display = "block";
+    lightboxVideo.style.display = "none";
 
-  galleryItems.forEach((item, index) => {
-    let element;
-    let url = item.type === "image"
-      ? `https://drive.google.com/uc?export=view&id=${item.id}`  // ✅ Corrected Google Drive link format
-      : `https://drive.google.com/file/d/${item.id}/preview`;
-
-    if (item.type === "image") {
-      element = document.createElement("img");
-      element.src = url;
-      element.alt = item.name;
-      element.classList.add("gallery-item");
-      element.onclick = () => openLightbox(index);
-      imageGallery.appendChild(element);
-    } else {
-      element = document.createElement("iframe");
-      element.src = url;
-      element.width = "640";
-      element.height = "360";
-      element.classList.add("gallery-item");
-      videoGallery.appendChild(element);
-    }
-  });
+    lightbox.style.display = "flex";
 }
 
-document.addEventListener("DOMContentLoaded", loadGallery);
+// Close lightbox
+function closeLightbox() {
+    let lightbox = document.getElementById("lightbox");
+    let lightboxImg = document.getElementById("lightbox-img");
+    let lightboxVideo = document.getElementById("lightbox-video");
+
+    lightbox.style.display = "none";
+    lightboxImg.src = "";
+    lightboxVideo.src = "";
+}
