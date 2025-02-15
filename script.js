@@ -104,3 +104,46 @@ function filterEntries() {
         }
     });
 }
+document.addEventListener("DOMContentLoaded", function() {
+    if (document.getElementById("posts-container")) {
+        loadPosts();
+    }
+});
+
+async function loadPosts() {
+    const response = await fetch("posts.json"); // Fetch posts
+    const posts = await response.json();
+
+    let container = document.getElementById("posts-container");
+    container.innerHTML = "";
+
+    posts.forEach((post, index) => {
+        let postDiv = document.createElement("div");
+        postDiv.classList.add("post-item");
+        postDiv.innerHTML = `
+            <h2 class="post-title" onclick="openPost(${index})">${post.title}</h2>
+            <p class="post-date">${post.date}</p>
+        `;
+        container.appendChild(postDiv);
+    });
+
+    // Store posts in a variable for modal usage
+    window.postsData = posts;
+}
+
+function openPost(index) {
+    let modal = document.getElementById("post-modal");
+    let title = document.getElementById("modal-title");
+    let date = document.getElementById("modal-date");
+    let content = document.getElementById("modal-content");
+
+    title.textContent = window.postsData[index].title;
+    date.textContent = `Date: ${window.postsData[index].date}`;
+    content.innerHTML = marked.parse(window.postsData[index].content); // Render markdown
+
+    modal.style.display = "block";
+}
+
+function closePost() {
+    document.getElementById("post-modal").style.display = "none";
+}
