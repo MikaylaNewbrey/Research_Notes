@@ -120,7 +120,7 @@ function loadGallery() {
   galleryItems.forEach((item, index) => {
     let element;
     let url = item.type === "image"
-      ? `https://lh3.googleusercontent.com/d/${item.id}=s600` // ✅ Correct Drive Image Path
+      ? `https://drive.google.com/uc?export=view&id=${item.id}`  // ✅ Corrected Google Drive link format
       : `https://drive.google.com/file/d/${item.id}/preview`;
 
     if (item.type === "image") {
@@ -139,51 +139,6 @@ function loadGallery() {
       videoGallery.appendChild(element);
     }
   });
-}
-
-// Open lightbox
-function openLightbox(index) {
-  currentIndex = index;
-  let lightbox = document.getElementById("lightbox");
-  let lightboxImg = document.getElementById("lightbox-img");
-  let lightboxVideo = document.getElementById("lightbox-video");
-
-  let item = galleryItems[index];
-  let url = item.type === "image"
-    ? `https://lh3.googleusercontent.com/d/${item.id}=s600`
-    : `https://drive.google.com/file/d/${item.id}/preview`;
-
-  if (item.type === "image") {
-    lightboxImg.src = url;
-    lightboxImg.style.display = "block";
-    lightboxVideo.style.display = "none";
-  } else {
-    lightboxVideo.src = url;
-    lightboxVideo.style.display = "block";
-    lightboxImg.style.display = "none";
-  }
-
-  lightbox.style.display = "flex";
-}
-
-// Next/Prev navigation
-function changeMedia(direction) {
-  currentIndex += direction;
-  if (currentIndex < 0) currentIndex = galleryItems.length - 1;
-  if (currentIndex >= galleryItems.length) currentIndex = 0;
-
-  openLightbox(currentIndex);
-}
-
-// Close lightbox
-function closeLightbox() {
-  let lightbox = document.getElementById("lightbox");
-  let lightboxImg = document.getElementById("lightbox-img");
-  let lightboxVideo = document.getElementById("lightbox-video");
-
-  lightbox.style.display = "none";
-  lightboxImg.src = "";
-  lightboxVideo.src = "";
 }
 
 document.addEventListener("DOMContentLoaded", loadGallery);
