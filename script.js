@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (document.getElementById("posts-container")) {
         loadMarkdownFiles("Posts", "posts-container");
     }
+    if (document.getElementById("gallery")) {
+        loadGallery();
+    }
 });
 
 /* ✅ Function to Load Markdown Files from GitHub ✅ */
@@ -79,6 +82,8 @@ function openPost(title, content) {
     modalContent.innerHTML = marked.parse(content); // ✅ Render Markdown content
 
     modal.style.display = "flex"; // ✅ Ensure modal is visible
+    modal.style.justifyContent = "center"; // ✅ Center modal on screen
+    modal.style.alignItems = "center"; 
     modal.style.zIndex = "1000"; // ✅ Keep modal above everything
     modal.focus(); // ✅ Ensure it can be interacted with
 }
@@ -104,27 +109,80 @@ function filterEntries() {
     });
 }
 
+/* ✅ Google Drive Gallery Integration ✅ */
 const galleryItems = [
-    { type: "image", id: "IMAGE_FILE_ID" },
-    { type: "video", id: "VIDEO_FILE_ID" }
+    { type: "image", id: "YOUR_IMAGE_FILE_ID_1" },
+    { type: "image", id: "YOUR_IMAGE_FILE_ID_2" },
+    { type: "video", id: "YOUR_VIDEO_FILE_ID_1" },
 ];
 
 function loadGallery() {
-    let galleryContainer = document.getElementById("gallery");
+    let imageGallery = document.getElementById("image-gallery");
+    let videoGallery = document.getElementById("video-gallery");
 
-    galleryItems.forEach(item => {
+    galleryItems.forEach((item, index) => {
         let element;
+        let url = `https://drive.google.com/uc?export=view&id=${item.id}`;
+
         if (item.type === "image") {
             element = document.createElement("img");
-            element.src = `https://drive.google.com/uc?export=view&id=${item.id}`;
+            element.src = url;
+            element.classList.add("gallery-item");
+            element.onclick = () => openLightbox(index);
+            imageGallery.appendChild(element);
         } else if (item.type === "video") {
             element = document.createElement("iframe");
             element.src = `https://drive.google.com/file/d/${item.id}/preview`;
             element.width = "640";
-            element.height = "480";
+            element.height = "360";
+            element.classList.add("gallery-item");
+            videoGallery.appendChild(element);
         }
-        galleryContainer.appendChild(element);
     });
 }
 
-document.addEventListener("DOMContentLoaded", loadGallery);
+/* ✅ Lightbox Functionality ✅ */
+let currentIndex = 0;
+
+function openLightbox(index) {
+    currentIndex = index;
+    let lightbox = document.getElementById("lightbox");
+    let lightboxImg = document.getElementById("lightbox-img");
+    let lightboxVideo = document.getElementById("lightbox-video");
+    let lightboxVideoSource = document.getElementById("lightbox-video-source");
+
+    lightbox.style.display = "flex";
+
+    let item = galleryItems[index];
+    let url = `https://drive.google.com/uc?export=view&id=${item.id}`;
+
+    if (item.type === "image") {
+        lightboxImg.src = url;
+        lightboxImg.style.display = "block";
+        lightboxVideo.style.display = "none";
+    } else {
+        lightboxVideoSource.src = `https://drive.google.com/file/d/${item.id}/preview`;
+        lightboxVideo.load();
+        lightboxVideo.style.display = "block";
+        lightboxImg.style.display = "none";
+    }
+}
+
+function changeMedia(direction) {
+    currentIndex += direction;
+    if (currentIndex < 0) currentIndex = galleryItems.length - 1;
+    else if (currentIndex >= galleryItems.length) currentIndex = 0;
+
+    openLightbox(currentIndex);
+}
+
+function closeLightbox() {
+    let lightbox = document.getElementById("lightbox");
+    let lightboxImg = document.getElementById("lightbox-img");
+    let lightboxVideo = document.getElementById("lightbox-video");
+
+    lightbox.style.display = "none";
+    lightboxImg.src = "";
+    lightboxVideo.pause();
+    lightboxVideo.src = "";
+}
