@@ -251,3 +251,61 @@ nav ul li a:active {
     font-size: 30px;
     cursor: pointer;
 }
+/* Style for post list */
+.post-item {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.post-title {
+    color: #000;
+    font-size: 1.5em;
+    margin: 0;
+    transition: color 0.3s ease;
+}
+
+.post-title:hover {
+    color: #f39c12; /* Matches navbar hover color */
+}
+
+.post-date {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 50%;
+    max-height: 80%;
+    overflow-y: auto;
+    text-align: left;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #000;
+}
