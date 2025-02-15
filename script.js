@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", function() {
     if (document.getElementById("posts")) {
         loadMarkdownFiles("Posts", "posts");
     }
+    if (document.getElementById("posts-container")) {
+        loadPosts();
+    }
 });
 
 /* ✅ Function to Load Markdown Files from GitHub ✅ */
@@ -13,7 +16,6 @@ async function loadMarkdownFiles(folder, containerId) {
     container.innerHTML = "";
 
     try {
-        // Fetch file list from GitHub API
         const repoOwner = "MikaylaNewbrey";
         const repoName = "Research_Notes";
         const branch = "main";
@@ -67,7 +69,6 @@ function openLightbox(index) {
     } else {
         lightboxVideoSource.src = mediaItems[index].src;
         lightboxVideo.load();
-        lightboxVideo.play(); // ✅ Auto-play video when opened
         lightboxVideo.style.display = "block";
         lightboxImg.style.display = "none";
     }
@@ -91,6 +92,8 @@ function closeLightbox() {
     lightboxVideo.pause();
     lightboxVideo.src = "";
 }
+
+/* ✅ Search Filter for Lab Notebook & Updates ✅ */
 function filterEntries() {
     let input = document.getElementById("search").value.toLowerCase();
     let entries = document.querySelectorAll(".entry");
@@ -104,12 +107,8 @@ function filterEntries() {
         }
     });
 }
-document.addEventListener("DOMContentLoaded", function() {
-    if (document.getElementById("posts-container")) {
-        loadPosts();
-    }
-});
 
+/* ✅ Load Posts from posts.json ✅ */
 async function loadPosts() {
     const response = await fetch("posts.json"); // Fetch posts
     const posts = await response.json();
@@ -131,19 +130,8 @@ async function loadPosts() {
     window.postsData = posts;
 }
 
+/* ✅ Open Post in Modal Pop-Up ✅ */
 function openPost(index) {
     let modal = document.getElementById("post-modal");
     let title = document.getElementById("modal-title");
-    let date = document.getElementById("modal-date");
-    let content = document.getElementById("modal-content");
-
-    title.textContent = window.postsData[index].title;
-    date.textContent = `Date: ${window.postsData[index].date}`;
-    content.innerHTML = marked.parse(window.postsData[index].content); // Render markdown
-
-    modal.style.display = "block";
-}
-
-function closePost() {
-    document.getElementById("post-modal").style.display = "none";
-}
+    let date = document.getElementById
