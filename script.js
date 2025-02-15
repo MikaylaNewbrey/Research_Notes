@@ -9,45 +9,24 @@ document.addEventListener("DOMContentLoaded", function () {
     loadMarkdownFiles("Posts", "posts-container");
   }
   if (document.getElementById("image-gallery")) {
-    loadGallery();
+    setupGalleryLightbox();
   }
 });
 
 /*******************************************
- * 2. Lightbox for Images & Videos
+ * 2. Lightbox for Images & Videos (Dynamic)
  *******************************************/
+let galleryItems = [];
 let currentIndex = 0;
-const galleryItems = [
-  { type: "image", id: "1o-cMnKZoqqr25Wjj6HUqjnX-9F-SCxFW", name: "Remus_Wellfleet" },
-  { type: "image", id: "YOUR_SECOND_IMAGE_ID", name: "Another Image" },
-  { type: "video", id: "YOUR_VIDEO_FILE_ID", name: "Research Video" }
-];
 
-function loadGallery() {
-  let imageGallery = document.getElementById("image-gallery");
-  let videoGallery = document.getElementById("video-gallery");
+function setupGalleryLightbox() {
+  let images = document.querySelectorAll(".gallery-item");
+  galleryItems = Array.from(images);
 
-  galleryItems.forEach((item, index) => {
-    let element;
-    let url = item.type === "image" 
-      ? `https://drive.google.com/uc?export=view&id=${item.id}`
-      : `https://drive.google.com/file/d/${item.id}/preview`;
-
-    if (item.type === "image") {
-      element = document.createElement("img");
-      element.src = url;
-      element.alt = item.name;
-      element.classList.add("gallery-item");
-      element.onclick = () => openLightbox(index);
-      imageGallery.appendChild(element);
-    } else {
-      element = document.createElement("iframe");
-      element.src = url;
-      element.width = "640";
-      element.height = "360";
-      element.classList.add("gallery-item");
-      videoGallery.appendChild(element);
-    }
+  images.forEach((item, index) => {
+    item.addEventListener("click", function () {
+      openLightbox(index);
+    });
   });
 }
 
@@ -58,12 +37,11 @@ function openLightbox(index) {
   let lightboxImg = document.getElementById("lightbox-img");
   let lightboxVideo = document.getElementById("lightbox-video");
 
-  let item = galleryItems[index];
-  let url = item.type === "image" 
-    ? `https://drive.google.com/uc?export=view&id=${item.id}`
-    : `https://drive.google.com/file/d/${item.id}/preview`;
+  let item = galleryItems[currentIndex];
+  let isVideo = item.tagName === "IFRAME";
+  let url = item.src;
 
-  if (item.type === "image") {
+  if (!isVideo) {
     lightboxImg.src = url;
     lightboxImg.style.display = "block";
     lightboxVideo.style.display = "none";
@@ -95,5 +73,3 @@ function closeLightbox() {
   lightboxImg.src = "";
   lightboxVideo.src = "";
 }
-
-document.addEventListener("DOMContentLoaded", loadGallery);
