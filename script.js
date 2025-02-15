@@ -2,18 +2,15 @@ document.addEventListener("DOMContentLoaded", function() {
     if (document.getElementById("entries")) {
         loadMarkdownFiles("Notebook", "entries");
     }
-    if (document.getElementById("posts")) {
-        loadMarkdownFiles("Posts", "posts");
-    }
     if (document.getElementById("posts-container")) {
-        loadPosts();
+        loadMarkdownFiles("Posts", "posts-container");
     }
 });
 
 /* ✅ Function to Load Markdown Files from GitHub ✅ */
 async function loadMarkdownFiles(folder, containerId) {
     let container = document.getElementById(containerId);
-    container.innerHTML = "";
+    container.innerHTML = "<p>Loading...</p>"; // Show loading message
 
     try {
         const repoOwner = "MikaylaNewbrey";
@@ -21,26 +18,37 @@ async function loadMarkdownFiles(folder, containerId) {
         const branch = "main";
 
         const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folder}`);
+        if (!response.ok) {
+            throw new Error(`GitHub API error: ${response.status}`);
+        }
         const files = await response.json();
 
-        for (let file of files) {
+        container.innerHTML = ""; // Clear loading message
+
+        if (files.length === 0) {
+            container.innerHTML = "<p>No posts found.</p>"; // Show message if empty
+            return;
+        }
+
+        files.forEach(async (file) => {
             if (file.name.endsWith(".md")) {
                 let contentResponse = await fetch(file.download_url);
                 let markdownContent = await contentResponse.text();
 
                 let entryDiv = document.createElement("div");
-                entryDiv.classList.add("entry");
+                entryDiv.classList.add("post-item");
 
+                // Create title and clickable event for modal
                 entryDiv.innerHTML = `
-                    <h2>${file.name.replace(".md", "")}</h2>
-                    <div class="markdown-content">${marked.parse(markdownContent)}</div>
+                    <h2 class="post-title" onclick="openPost('${file.name}', \`${markdownContent}\`)">${file.name.replace(".md", "")}</h2>
                 `;
 
                 container.appendChild(entryDiv);
             }
-        }
+        });
     } catch (error) {
         console.error("Error loading Markdown files:", error);
+        container.innerHTML = `<p>Error loading posts. Check console.</p>`;
     }
 }
 
@@ -96,7 +104,7 @@ function closeLightbox() {
 /* ✅ Search Filter for Lab Notebook & Updates ✅ */
 function filterEntries() {
     let input = document.getElementById("search").value.toLowerCase();
-    let entries = document.querySelectorAll(".entry");
+    let entries = document.querySelectorAll(".post-item");
 
     entries.forEach(entry => {
         let text = entry.innerText.toLowerCase();
@@ -108,30 +116,18 @@ function filterEntries() {
     });
 }
 
-/* ✅ Load Posts from posts.json ✅ */
-async function loadPosts() {
-    const response = await fetch("posts.json"); // Fetch posts
-    const posts = await response.json();
+/* ✅ Open Post in Modal Pop-Up ✅ */
+function openPost(title, content) {
+    let modal = document.getElementById("post-modal");
+    let modalTitle = document.getElementById("modal-title");
+    let modalContent = document.getElementById("modal-content");
 
-    let container = document.getElementById("posts-container");
-    container.innerHTML = "";
+    modalTitle.textContent = title.replace(".md", ""); // Format title
+    modalContent.innerHTML = marked.parse(content); // Render markdown
 
-    posts.forEach((post, index) => {
-        let postDiv = document.createElement("div");
-        postDiv.classList.add("post-item");
-        postDiv.innerHTML = `
-            <h2 class="post-title" onclick="openPost(${index})">${post.title}</h2>
-            <p class="post-date">${post.date}</p>
-        `;
-        container.appendChild(postDiv);
-    });
-
-    // Store posts in a variable for modal usage
-    window.postsData = posts;
+    modal.style.display = "block";
 }
 
-/* ✅ Open Post in Modal Pop-Up ✅ */
-function openPost(index) {
-    let modal = document.getElementById("post-modal");
-    let title = document.getElementById("modal-title");
-    let date = document.getElementById
+function closePost() {
+    document.getElementById("post-modal").style.display = "none";
+}
