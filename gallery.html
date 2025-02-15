@@ -27,45 +27,23 @@
     <!-- Images Section -->
     <h2>Images</h2>
     <hr>
-    <div class="gallery-grid">
-        <!-- Example: Google Drive Image (Replace FILE_ID with real ID) -->
-        <img
-            src="https://drive.google.com/uc?export=view&id=FILE_ID_1"
-            alt="Sample Image 1"
-            class="gallery-item"
-            onclick="openLightboxWithImage('https://drive.google.com/uc?export=view&id=FILE_ID_1')"
-        />
-
-        <!-- Add more images similarly -->
-        <!--
-        <img
-            src="https://drive.google.com/uc?export=view&id=FILE_ID_2"
-            alt="Sample Image 2"
-            class="gallery-item"
-            onclick="openLightboxWithImage('https://drive.google.com/uc?export=view&id=FILE_ID_2')"
-        />
-        -->
+    <div class="gallery-grid" id="image-gallery">
+        <!-- Images will be dynamically added from script.js -->
     </div>
 
     <!-- Videos Section -->
     <h2>Videos</h2>
     <hr>
-    <div class="gallery-grid">
-        <!-- Example: Google Drive Video (Replace FILE_ID with real ID) -->
-        <iframe
-            src="https://drive.google.com/file/d/FILE_ID_VIDEO/preview"
-            width="640"
-            height="360"
-            class="gallery-item"
-        ></iframe>
-
-        <!-- Add more videos similarly -->
+    <div class="gallery-grid" id="video-gallery">
+        <!-- Videos will be dynamically added from script.js -->
     </div>
 </section>
 
 <!-- Lightbox (Hidden by Default) -->
 <div id="lightbox" class="lightbox" style="display:none;">
     <span class="close-btn" onclick="closeLightbox()">&times;</span>
+    <span class="prev-btn" onclick="changeMedia(-1)">&#10094;</span>
+    <span class="next-btn" onclick="changeMedia(1)">&#10095;</span>
     <img id="lightbox-img" style="display: none;" />
     <video id="lightbox-video" controls style="display: none;">
         <source id="lightbox-video-source" src="" type="video/mp4">
