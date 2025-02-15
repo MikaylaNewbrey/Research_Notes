@@ -36,12 +36,24 @@ async function loadMarkdownFiles(folder, containerId) {
                 let contentResponse = await fetch(file.download_url);
                 let markdownContent = await contentResponse.text();
 
+                // ✅ Extract metadata from the Markdown file
+                let titleMatch = markdownContent.match(/title:\s*"(.+?)"/);
+                let dateMatch = markdownContent.match(/date:\s*"(.+?)"/);
+                let summaryMatch = markdownContent.match(/summary:\s*"(.+?)"/);
+
+                let title = titleMatch ? titleMatch[1] : file.name.replace(".md", "");
+                let date = dateMatch ? dateMatch[1] : "Unknown Date";
+                let summary = summaryMatch ? summaryMatch[1] : "No summary available.";
+
                 let entryDiv = document.createElement("div");
                 entryDiv.classList.add("post-item");
 
-                // Create title and clickable event for modal
+                // ✅ Create modern post layout with title, date, summary, and arrow
                 entryDiv.innerHTML = `
-                    <h2 class="post-title" onclick="openPost('${file.name}', \`${markdownContent}\`)">${file.name.replace(".md", "")}</h2>
+                    <h2 class="post-title" onclick="openPost('${title}', \`${markdownContent}\`)">${title}</h2>
+                    <p class="post-date">${date}</p>
+                    <p class="post-summary">${summary}</p>
+                    <span class="post-read-more">→</span>
                 `;
 
                 container.appendChild(entryDiv);
@@ -53,53 +65,20 @@ async function loadMarkdownFiles(folder, containerId) {
     }
 }
 
-/* ✅ Lightbox Variables for Image & Video Gallery ✅ */
-const mediaItems = [
-    { type: 'image', src: 'images/gallery/research1.jpg' },
-    { type: 'image', src: 'images/gallery/research2.jpg' },
-    { type: 'video', src: 'images/gallery/fieldwork.mp4' }
-];
+/* ✅ Open Post in Modal Pop-Up ✅ */
+function openPost(title, content) {
+    let modal = document.getElementById("post-modal");
+    let modalTitle = document.getElementById("modal-title");
+    let modalContent = document.getElementById("modal-content");
 
-let currentIndex = 0;
+    modalTitle.textContent = title; // ✅ Uses extracted title
+    modalContent.innerHTML = marked.parse(content); // ✅ Render Markdown content
 
-function openLightbox(index) {
-    currentIndex = index;
-    let lightbox = document.getElementById("lightbox");
-    let lightboxImg = document.getElementById("lightbox-img");
-    let lightboxVideo = document.getElementById("lightbox-video");
-    let lightboxVideoSource = document.getElementById("lightbox-video-source");
-
-    lightbox.style.display = "flex";
-
-    if (mediaItems[index].type === 'image') {
-        lightboxImg.src = mediaItems[index].src;
-        lightboxImg.style.display = "block";
-        lightboxVideo.style.display = "none";
-    } else {
-        lightboxVideoSource.src = mediaItems[index].src;
-        lightboxVideo.load();
-        lightboxVideo.style.display = "block";
-        lightboxImg.style.display = "none";
-    }
+    modal.style.display = "flex"; // ✅ Enlarged modal, centered
 }
 
-function changeMedia(direction) {
-    currentIndex += direction;
-    if (currentIndex < 0) currentIndex = mediaItems.length - 1;
-    else if (currentIndex >= mediaItems.length) currentIndex = 0;
-
-    openLightbox(currentIndex);
-}
-
-function closeLightbox() {
-    let lightbox = document.getElementById("lightbox");
-    let lightboxImg = document.getElementById("lightbox-img");
-    let lightboxVideo = document.getElementById("lightbox-video");
-
-    lightbox.style.display = "none";
-    lightboxImg.src = "";
-    lightboxVideo.pause();
-    lightboxVideo.src = "";
+function closePost() {
+    document.getElementById("post-modal").style.display = "none";
 }
 
 /* ✅ Search Filter for Lab Notebook & Updates ✅ */
@@ -115,20 +94,4 @@ function filterEntries() {
             entry.style.display = "none";
         }
     });
-}
-
-/* ✅ Open Post in Modal Pop-Up ✅ */
-function openPost(title, content) {
-    let modal = document.getElementById("post-modal");
-    let modalTitle = document.getElementById("modal-title");
-    let modalContent = document.getElementById("modal-content");
-
-    modalTitle.textContent = title.replace(".md", ""); // Format title
-    modalContent.innerHTML = marked.parse(content); // Render markdown
-
-    modal.style.display = "flex"; // ✅ Enlarged modal
-}
-
-function closePost() {
-    document.getElementById("post-modal").style.display = "none";
 }
