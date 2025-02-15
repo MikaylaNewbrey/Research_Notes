@@ -254,3 +254,17 @@ nav ul li a:active {
     color: white;
     cursor: pointer;
 }
+/* ✅ Style the Close Button (X) ✅ */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #16a085; /* Updated: Teal (matches navbar) */
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: #f39c12; /* Updated: Orange hover */
+}
