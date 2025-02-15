@@ -1,4 +1,4 @@
----title: "{TITLE OF ENTRY}" date: YYYY-MM-DD keywords: ["keyword1", "keyword2", "keyword3"] project: "{Project Name}" experiment_type: "{Fieldwork / Data Analysis / Literature Review / Other}" location: "{Lab / Field Site / Remote}" collaborators: ["{Name1}", "{Name2}"] equipment: ["{Equipment1}", "{Equipment2}"] status: "In Progress" # Options: In Progress, Completed, Needs Review---
+
 
 # DNA Extraction from Marine Samples  
 
