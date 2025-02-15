@@ -110,10 +110,8 @@ function filterEntries() {
 }
 
 /* ✅ Google Drive Gallery Integration ✅ */
-const galleryItems = [
-    { type: "image", id: "YOUR_IMAGE_FILE_ID_1" },
-    { type: "image", id: "YOUR_IMAGE_FILE_ID_2" },
-    { type: "video", id: "YOUR_VIDEO_FILE_ID_1" },
+    const galleryItems = [
+    { type: "image", id: "1o-cMnKZoqqr25Wjj6HUqjnX-9F-SCxFW", name: "Remus_Wellfleet" }
 ];
 
 function loadGallery() {
