@@ -4,7 +4,7 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Updates</title> <!-- Changed to match nav -->
+    <title>Updates</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
 </head>
@@ -14,15 +14,25 @@
         <li><a href="/Research_Notes/index.html">HOME</a></li>
         <li><a href="/Research_Notes/about.html">ABOUT</a></li>
         <li><a href="/Research_Notes/lab-notebook.html">NOTEBOOK</a></li>
-        <li><a href="/Research_Notes/posts.html" class="active">UPDATES</a></li> <!-- Keeps highlight on this page -->
+        <li><a href="/Research_Notes/posts.html" class="active">UPDATES</a></li>
         <li><a href="/Research_Notes/gallery.html">GALLERY</a></li>
     </ul>
 </nav>
 
-    <h1>Updates</h1> <!-- Changed to match navigation -->
+    <h1>Updates</h1>
     <input type="text" id="search" placeholder="Search updates by keyword or date" onkeyup="filterEntries()">
-    <div id="posts"></div>
+    
+    <div id="posts-container"></div> <!-- Modern layout -->
+
+    <!-- Modal for viewing full post -->
+    <div id="post-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closePost()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p id="modal-date"></p>
+            <div id="modal-content"></div>
+        </div>
+    </div>
 
 </body>
 </html>
-
