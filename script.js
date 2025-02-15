@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", function () {
   if (document.getElementById("posts-container")) {
     loadMarkdownFiles("Posts", "posts-container");
   }
+  // Load gallery
+  if (document.getElementById("image-gallery") || document.getElementById("video-gallery")) {
+    loadGallery();
+  }
 });
 
 /* ✅ Function to Load Markdown Files from GitHub ✅ */
@@ -35,7 +39,6 @@ async function loadMarkdownFiles(folder, containerId) {
       return;
     }
 
-    // Loop through all files
     for (const file of files) {
       if (file.name.endsWith(".md") && file.name.toLowerCase() !== "template.md") {
         const contentResponse = await fetch(file.download_url);
@@ -62,7 +65,6 @@ async function loadMarkdownFiles(folder, containerId) {
           <span class="post-read-more">→</span>
         `;
 
-        // Clicking the post item opens the post modal
         entryDiv.addEventListener("click", () => openPost(title, entryDiv.dataset.content));
         container.appendChild(entryDiv);
       }
@@ -111,57 +113,86 @@ function filterEntries() {
 }
 
 /*******************************************
- * 4. Lightbox for Images (Google Drive)
+ * 4. Gallery (Google Drive)
  *******************************************/
-const galleryImages = [
-  { id: "1o-cMnKZoqqr25Wjj6HUqjnX-9F-SCxFW", name: "Remus_Wellfleet" },
-  { id: "YOUR_SECOND_IMAGE_ID", name: "Another Image" }
+const galleryItems = [
+  { type: "image", id: "1o-cMnKZoqqr25Wjj6HUqjnX-9F-SCxFW", name: "Remus_Wellfleet" },
+  { type: "image", id: "YOUR_SECOND_IMAGE_ID", name: "Another Image" },
+  { type: "video", id: "YOUR_VIDEO_FILE_ID", name: "Research Video" }
 ];
 
 let currentIndex = 0;
 
 function loadGallery() {
   let imageGallery = document.getElementById("image-gallery");
+  let videoGallery = document.getElementById("video-gallery");
 
-  galleryImages.forEach((item, index) => {
-    let imageUrl = `https://drive.google.com/uc?export=view&id=${item.id}`;
+  galleryItems.forEach((item, index) => {
+    let element;
+    let url = `https://drive.google.com/uc?export=view&id=${item.id}`;
 
-    let img = document.createElement("img");
-    img.src = imageUrl;
-    img.alt = item.name;
-    img.classList.add("gallery-item");
-    img.onclick = () => openLightbox(index);
-
-    imageGallery.appendChild(img);
+    if (item.type === "image") {
+      element = document.createElement("img");
+      element.src = url;
+      element.alt = item.name;
+      element.classList.add("gallery-item");
+      element.onclick = () => openLightbox(index);
+      imageGallery.appendChild(element);
+    } else if (item.type === "video") {
+      element = document.createElement("iframe");
+      element.src = `https://drive.google.com/file/d/${item.id}/preview`;
+      element.width = "640";
+      element.height = "360";
+      element.classList.add("gallery-item");
+      videoGallery.appendChild(element);
+    }
   });
 }
 
-// Open image in lightbox
+/*******************************************
+ * 5. Lightbox Functionality
+ *******************************************/
 function openLightbox(index) {
   currentIndex = index;
   let lightbox = document.getElementById("lightbox");
   let lightboxImg = document.getElementById("lightbox-img");
+  let lightboxVideo = document.getElementById("lightbox-video");
 
-  lightboxImg.src = `https://drive.google.com/uc?export=view&id=${galleryImages[currentIndex].id}`;
+  let item = galleryItems[currentIndex];
+  let url = `https://drive.google.com/uc?export=view&id=${item.id}`;
+
+  if (item.type === "image") {
+    lightboxImg.src = url;
+    lightboxImg.style.display = "block";
+    lightboxVideo.style.display = "none";
+  } else {
+    lightboxVideo.src = `https://drive.google.com/file/d/${item.id}/preview`;
+    lightboxVideo.style.display = "block";
+    lightboxImg.style.display = "none";
+  }
+
   lightbox.style.display = "flex";
 }
 
 // Next/Prev image navigation
 function changeMedia(direction) {
   currentIndex += direction;
-  if (currentIndex < 0) currentIndex = galleryImages.length - 1;
-  else if (currentIndex >= galleryImages.length) currentIndex = 0;
+  if (currentIndex < 0) currentIndex = galleryItems.length - 1;
+  else if (currentIndex >= galleryItems.length) currentIndex = 0;
 
-  document.getElementById("lightbox-img").src = `https://drive.google.com/uc?export=view&id=${galleryImages[currentIndex].id}`;
+  openLightbox(currentIndex);
 }
 
 // Close lightbox
 function closeLightbox() {
   let lightbox = document.getElementById("lightbox");
   let lightboxImg = document.getElementById("lightbox-img");
+  let lightboxVideo = document.getElementById("lightbox-video");
 
   lightbox.style.display = "none";
   lightboxImg.src = "";
+  lightboxVideo.src = "";
 }
 
+// Load gallery on page load
 document.addEventListener("DOMContentLoaded", loadGallery);
