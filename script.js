@@ -107,7 +107,7 @@ function filterEntries() {
 
 /* ✅ Google Drive Gallery Integration - Auto Fetch ✅ */
 const driveFolderId = "1umgZLdQFNL-IxmPrPKO5uR9cEDFZ6TdA"; // Your Google Drive folder ID
-const apiKey = "AIzaSyCUv2_rp9yVAPBfwJpkzEyvYwwbMJkB_Ts"; // Replace this with your actual API Key
+const apiKey = ""; // Replace this with your actual API Key
 
 async function fetchGalleryImages() {
     let galleryContainer = document.getElementById("gallery");
