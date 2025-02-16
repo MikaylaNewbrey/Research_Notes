@@ -167,17 +167,34 @@ nav ul li a:active {
 .about-text h1 {
     color: #117a65 !important;
     font-size: 3em !important;
-}
+
 /* ✅ Footer Styling */
 footer {
-    background: #FFFFFF;
+    background: #FFFFFF; /* Keeps background white */
+    text-align: center;
     padding: 20px;
-    border-top: 1px solid #e0e0e0;
-    margin-top: auto;
-    display: flex;
-    justify-content: center; /* ✅ Centers everything */
-    align-items: center;
-    position: relative;
+    border-top: 1px solid #e0e0e0; /* Thin horizontal line */
+    margin-top: auto; /* Pushes footer to bottom */
+}
+
+/* ✅ Footer Logo - Slightly Bigger & Non-Clickable */
+.footer-logo img {
+    width: 150px; /* Increased size slightly */
+    height: auto;
+    opacity: 0.8;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none; /* Prevents clicking */
+}
+
+.footer-logo img:hover {
+    opacity: 1;
+}
+
+/* Responsive Fix */
+@media (max-width: 900px) {
+    .footer-logo img {
+        width: 85px;
+    }
 }
 
 /* ✅ Footer Container (Keeps Logo Centered, Icons Right) */
@@ -190,29 +207,11 @@ footer {
     position: relative;
 }
 
-/* ✅ Footer Logo (Stays Centered) */
-.footer-logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.footer-logo img {
-    width: 100px; /* ✅ Keeps original size */
-    height: auto;
-    opacity: 0.8;
-    pointer-events: none;
-    transition: opacity 0.3s ease-in-out;
-}
-
-.footer-logo img:hover {
-    opacity: 1;
-}
 
 /* ✅ Social Links Positioned to the Right */
 .social-links {
     position: absolute;
-    right: 0;
+    right: 10;
     display: flex;
     gap: 12px;
     align-items: center;
@@ -239,8 +238,6 @@ footer {
         width: 18px; /* ✅ Adjusts icon size for mobile */
     }
 }
-
-
 
 
 /* Search Bar - Modernized */
