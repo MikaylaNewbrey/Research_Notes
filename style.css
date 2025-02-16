@@ -169,24 +169,25 @@ nav ul li a:active {
     font-size: 3em !important;
 }
 
-/* ✅ Modernized Footer */
+/* ✅ Footer Styling */
 footer {
     background: #FFFFFF;
     padding: 20px;
     border-top: 1px solid #e0e0e0; /* ✅ Thin horizontal line */
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     max-width: 1200px;
     margin: auto;
     width: 100%;
+    position: relative;
 }
 
-/* ✅ Footer Logo (Centered & Properly Sized) */
+/* ✅ Footer Logo - Perfectly Centered */
 .footer-logo {
-    flex: 1;
-    display: flex;
-    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .footer-logo img {
@@ -200,16 +201,18 @@ footer {
     opacity: 1;
 }
 
-/* ✅ Social Links (Right-Aligned, Smaller) */
+/* ✅ Social Links Positioned Closer to Center-Right */
 .social-links {
-    flex: 1;
+    position: absolute;
+    right: 20%; /* ✅ Moves icons away from the far right edge */
     display: flex;
-    justify-content: flex-end;
     gap: 15px;
+    align-items: center;
 }
 
+/* ✅ Smaller, Well-Spaced Icons */
 .social-links a img {
-    width: 24px; /* ✅ Smaller, more balanced */
+    width: 24px; /* ✅ Keeps them subtle */
     height: auto;
     transition: opacity 0.3s ease-in-out;
 }
@@ -226,12 +229,15 @@ footer {
     }
 
     .footer-logo {
+        position: relative;
+        transform: none;
         order: 1;
         margin-bottom: 10px;
     }
 
     .social-links {
         order: 2;
+        right: auto;
         justify-content: center;
     }
 
