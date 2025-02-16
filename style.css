@@ -198,7 +198,6 @@ footer {
     }
 }
 
-
 /* Search Bar - Modernized */
 #search {
     width: 90%;
@@ -217,15 +216,6 @@ footer {
     border-color: #f39c12;
 }
 
-/* ✅ Post Container - Restoring Hover Effect */
-.post-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    padding: 20px;
-}
-
 /* ✅ Post Card Styling */
 .post-item {
     background: #ffffff;
@@ -241,18 +231,17 @@ footer {
     position: relative;
 }
 
-/* ✅ Hover Effect Restored */
-.post-item:hover {
-    background-color: #f39c12; /* ✅ Turns Orange on Hover */
-    color: white;
-    transform: translateY(-5px);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* ✅ Title and Arrow Change Color */
+/* ✅ Hover Effect (Only Title & Arrow Turn Orange) */
 .post-item:hover .post-title,
 .post-item:hover .post-read-more {
-    color: white;
+    color: #f39c12; /* ✅ Turns Orange on Hover */
+}
+
+/* ✅ Ensures Background Stays White */
+.post-item:hover {
+    background-color: #ffffff;
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Post Title */
@@ -290,6 +279,12 @@ footer {
     bottom: 15px;
     right: 15px;
 }
+
+/* ✅ Read More Arrow Moves Slightly on Hover */
+.post-item:hover .post-read-more {
+    transform: translateX(5px);
+}
+
 
 /* Modal Styling */
 .modal {
