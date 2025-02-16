@@ -168,29 +168,37 @@ nav ul li a:active {
     color: #117a65 !important;
     font-size: 3em !important;
 }
-
 /* ✅ Footer Styling */
 footer {
     background: #FFFFFF;
-    display: flex;
-    justify-content: space-between; /* ✅ Aligns logo left, icons right */
-    align-items: center;
     padding: 20px;
     border-top: 1px solid #e0e0e0;
     margin-top: auto;
-}
-
-/* ✅ Footer Content */
-.footer-content {
     display: flex;
-    width: 100%;
+    justify-content: center; /* ✅ Centers everything */
     align-items: center;
-    justify-content: space-between;
+    position: relative;
 }
 
-/* ✅ Footer Logo */
+/* ✅ Footer Container (Keeps Logo Centered, Icons Right) */
+.footer-container {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* ✅ Footer Logo (Stays Centered) */
+.footer-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .footer-logo img {
-    width: 100px; /* ✅ Keeps logo size */
+    width: 100px; /* ✅ Keeps original size */
     height: auto;
     opacity: 0.8;
     pointer-events: none;
@@ -203,15 +211,16 @@ footer {
 
 /* ✅ Social Links Positioned to the Right */
 .social-links {
+    position: absolute;
+    right: 0;
     display: flex;
     gap: 12px;
     align-items: center;
-    justify-content: flex-end;
 }
 
 /* ✅ Smaller Social Icons */
 .social-links a img {
-    width: 20px; /* ✅ Smaller size */
+    width: 20px; /* ✅ Smaller icons */
     height: auto;
     transition: opacity 0.3s ease-in-out;
 }
