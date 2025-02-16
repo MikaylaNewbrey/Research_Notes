@@ -171,32 +171,68 @@ nav ul li a:active {
 
 /* ✅ Footer Styling */
 footer {
-    background: #FFFFFF; /* Keeps background white */
-    text-align: center;
+    background: #FFFFFF;
+    display: flex;
+    justify-content: space-between; /* ✅ Aligns logo left, icons right */
+    align-items: center;
     padding: 20px;
-    border-top: 1px solid #e0e0e0; /* Thin horizontal line */
-    margin-top: auto; /* Pushes footer to bottom */
+    border-top: 1px solid #e0e0e0;
+    margin-top: auto;
 }
 
-/* ✅ Footer Logo - Slightly Bigger & Non-Clickable */
+/* ✅ Footer Content */
+.footer-content {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ✅ Footer Logo */
 .footer-logo img {
-    width: 150px; /
+    width: 100px; /* ✅ Keeps logo size */
     height: auto;
     opacity: 0.8;
+    pointer-events: none;
     transition: opacity 0.3s ease-in-out;
-    pointer-events: none; /
 }
 
 .footer-logo img:hover {
     opacity: 1;
 }
 
-/* Responsive Fix */
+/* ✅ Social Links Positioned to the Right */
+.social-links {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* ✅ Smaller Social Icons */
+.social-links a img {
+    width: 20px; /* ✅ Smaller size */
+    height: auto;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.social-links a img:hover {
+    opacity: 0.7;
+}
+
+/* ✅ Responsive Fix */
 @media (max-width: 900px) {
     .footer-logo img {
-        width: 85px; /
+        width: 85px;
+    }
+
+    .social-links a img {
+        width: 18px; /* ✅ Adjusts icon size for mobile */
     }
 }
+
+
+
 
 /* Search Bar - Modernized */
 #search {
