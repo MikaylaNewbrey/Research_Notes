@@ -171,19 +171,20 @@ nav ul li a:active {
 
 /* ✅ Footer Styling */
 footer {
-    background: #FFFFFF; /* ✅ Keeps background white */
+    background: #FFFFFF; /* Keeps background white */
     text-align: center;
     padding: 20px;
-    border-top: 1px solid #e0e0e0; /* ✅ Thin horizontal line */
-    margin-top: auto; /* ✅ Pushes footer to bottom */
+    border-top: 1px solid #e0e0e0; /* Thin horizontal line */
+    margin-top: auto; /* Pushes footer to bottom */
 }
 
-/* ✅ Footer Logo */
+/* ✅ Footer Logo - Slightly Bigger & Non-Clickable */
 .footer-logo img {
-    width: 80px; /* ✅ Adjust size of the logo */
+    width: 150px; /
     height: auto;
     opacity: 0.8;
     transition: opacity 0.3s ease-in-out;
+    pointer-events: none; /
 }
 
 .footer-logo img:hover {
@@ -193,9 +194,10 @@ footer {
 /* Responsive Fix */
 @media (max-width: 900px) {
     .footer-logo img {
-        width: 70px;
+        width: 85px; /
     }
 }
+
 
 /* Search Bar - Modernized */
 #search {
