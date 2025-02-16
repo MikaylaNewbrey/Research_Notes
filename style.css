@@ -180,7 +180,7 @@ footer {
 
 /* ✅ Footer Logo - Slightly Bigger & Non-Clickable */
 .footer-logo img {
-    width: 100px; /
+    width: 150px; /
     height: auto;
     opacity: 0.8;
     transition: opacity 0.3s ease-in-out;
