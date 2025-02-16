@@ -125,3 +125,30 @@ function closeLightbox() {
     lightboxImg.src = "";
     lightboxVideo.src = "";
 }
+
+/*******************************************
+ * 5. Gallery Filtering & Masonry Layout
+ *******************************************/
+document.addEventListener("DOMContentLoaded", function () {
+    const filters = document.querySelectorAll(".list");
+    const images = document.querySelectorAll(".gallery-item");
+
+    filters.forEach(filter => {
+        filter.addEventListener("click", function () {
+            const filterValue = this.getAttribute("data-filter");
+
+            // Remove active class from all filters
+            filters.forEach(f => f.classList.remove("active"));
+            this.classList.add("active");
+
+            // Show or hide images based on category
+            images.forEach(img => {
+                if (filterValue === "all" || img.classList.contains(filterValue)) {
+                    img.style.display = "block";
+                } else {
+                    img.style.display = "none";
+                }
+            });
+        });
+    });
+});
