@@ -74,7 +74,21 @@ nav ul li a:active {
     font-weight: bold;
     color: #000000;
 }
+/* Fixed Logo in Corner */
+.corner-logo {
+    position: fixed;
+    bottom: 20px;  /* Adjust for top/bottom placement */
+    left: 20px;  /* Adjust for left/right placement */
+    width: 80px;  /* Adjust size */
+    height: auto;
+    z-index: 1000; /* Keeps it above other elements */
+    opacity: 0.8; /* Slight transparency */
+    transition: opacity 0.3s ease-in-out;
+}
 
+.corner-logo:hover {
+    opacity: 1; /* Full opacity on hover */
+}
 /* About Page */
 .about-container {
     display: flex;
