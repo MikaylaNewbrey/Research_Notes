@@ -96,20 +96,27 @@ nav ul li a:active {
 }
 
 .about-image img {
-    max-width: 60%;
+    max-width: 300px; /* ✅ Keeps it at a reasonable size */
     height: auto;
     border-radius: 10px;
+    display: block;
+    margin: 20px auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
-/* CTA BUTTONS */
+
+/* ✅ Fixed CTA BUTTON Overlap */
 .cta-buttons {
-    margin-top: 20px;
+    display: flex;
+    flex-direction: column; /* Stack buttons by default */
+    gap: 10px; /* Ensures spacing */
+    max-width: 300px; /* Prevents buttons from stretching too wide */
+    align-items: center; /* Centers buttons */
 }
 
 .cta-button {
-    display: inline-block;
-    text-decoration: none;
+    width: 100%; /* Ensures buttons are full width */
+    text-align: center;
     padding: 12px 20px;
-    margin-right: 10px;
     border: 2px solid #16a085;
     color: white;
     background-color: #16a085;
@@ -122,17 +129,21 @@ nav ul li a:active {
 .cta-button:hover {
     background-color: #f39c12;
     border: 2px solid #f39c12;
-    color: white;
 }
 
+/* ✅ Responsive Fix for Buttons */
+@media (min-width: 600px) {
+    .cta-buttons {
+        flex-direction: row; /* Side-by-side on larger screens */
+        justify-content: flex-start;
+    }
 
-/* Styling for "Hey There!" */
-.about-text h1 {
-    color: #117a65 !important;
-    font-size: 3em !important;
+    .cta-button {
+        width: auto; /* Allow buttons to fit content */
+    }
 }
 
-/* RESPONSIVE DESIGN */
+/* ✅ Responsive Fix for About Page */
 @media (max-width: 900px) {
     .about-container {
         flex-direction: column;
@@ -148,6 +159,12 @@ nav ul li a:active {
     }
 }
 
+/* Styling for "Hey There!" */
+.about-text h1 {
+    color: #117a65 !important;
+    font-size: 3em !important;
+}
+
 /* Search Bar - Modernized */
 #search {
     width: 90%;
@@ -158,7 +175,7 @@ nav ul li a:active {
     font-size: 16px;
     outline: none;
     display: block;
-    margin: 30px auto 25px auto; /* Increased margin to add buffer */
+    margin: 30px auto 25px auto;
     transition: 0.3s ease;
 }
 
@@ -260,9 +277,8 @@ nav ul li a:active {
     overflow-y: auto;
     text-align: left;
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
-    z-index: 1000; /* ✅ Ensures it's always above everything */
+    z-index: 1000;
 }
-
 
 /* Exit Button */
 .close-btn {
@@ -277,46 +293,4 @@ nav ul li a:active {
 
 .close-btn:hover {
     color: #f39c12;
-}
-
-/* Lightbox Navigation */
-.lightbox {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    z-index: 1000;
-}
-
-.lightbox img, 
-.lightbox video {
-    max-width: 90%;
-    max-height: 80%;
-    border-radius: 10px;
-}
-
-.prev-btn, .next-btn {
-    position: absolute;
-    top: 50%;
-    font-size: 40px;
-    color: white;
-    cursor: pointer;
-    padding: 10px;
-}
-
-.prev-btn { left: 20px; }
-.next-btn { right: 20px; }
-
-/* Responsive Layout */
-@media (max-width: 900px) {
-    .post-container {
-        flex-direction: column;
-        align-items: center;
-    }
 }
