@@ -1,14 +1,120 @@
-/* CTA BUTTONS */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+/* Ensure all text elements use Open Sans */
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Headings */
+h1, h2, h3 {
+    font-weight: 700;
+}
+
+/* Paragraphs and lists */
+p, li {
+    font-weight: 400;
+}
+
+/* Navigation Bar */
+nav {
+    background: transparent;
+    padding: 10px;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #16a085;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a:active {
+    color: #f39c12;
+}
+
+/* Splash Page Styling */
+.splash-container {
+    position: relative;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('/Research_Notes/images/shoreline-monterey-bay-960.jpg') no-repeat center center/cover;
+}
+
+.splash-text {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px 40px;
+    border-radius: 10px;
+    font-size: 2em;
+    font-weight: bold;
+    color: #000000;
+}
+
+/* About Page */
+.about-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.about-text {
+    flex: 1;
+    padding-right: 40px;
+}
+
+.about-image {
+    flex: 1;
+    text-align: center;
+}
+
+.about-image img {
+    max-width: 300px; /* ✅ Keeps it at a reasonable size */
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    margin: 20px auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ✅ Fixed CTA BUTTON Overlap */
 .cta-buttons {
     display: flex;
     flex-direction: column; /* Stack buttons by default */
-    gap: 10px; /* Ensure spacing */
-    max-width: 300px; /* Keeps buttons from stretching too wide */
-    align-items: center; /* Center align buttons */
+    gap: 10px; /* Ensures spacing */
+    max-width: 300px; /* Prevents buttons from stretching too wide */
+    align-items: center; /* Centers buttons */
 }
 
 .cta-button {
-    width: 100%; /* Make buttons stretch evenly */
+    width: 100%; /* Ensures buttons are full width */
     text-align: center;
     padding: 12px 20px;
     border: 2px solid #16a085;
@@ -25,29 +131,19 @@
     border: 2px solid #f39c12;
 }
 
-/* About Page Image */
-.about-image img {
-    max-width: 300px; /* Keeps it at a reasonable size */
-    height: auto;
-    border-radius: 10px;
-    display: block;
-    margin: 20px auto;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Responsive Fix for Buttons */
+/* ✅ Responsive Fix for Buttons */
 @media (min-width: 600px) {
     .cta-buttons {
-        flex-direction: row; /* Switch to side-by-side layout on larger screens */
+        flex-direction: row; /* Side-by-side on larger screens */
         justify-content: flex-start;
     }
 
     .cta-button {
-        width: auto; /* Let buttons adjust based on text */
+        width: auto; /* Allow buttons to fit content */
     }
 }
 
-/* Responsive Fix for About Page */
+/* ✅ Responsive Fix for About Page */
 @media (max-width: 900px) {
     .about-container {
         flex-direction: column;
@@ -61,4 +157,140 @@
     .about-image img {
         max-width: 100%;
     }
+}
+
+/* Styling for "Hey There!" */
+.about-text h1 {
+    color: #117a65 !important;
+    font-size: 3em !important;
+}
+
+/* Search Bar - Modernized */
+#search {
+    width: 90%;
+    max-width: 600px;
+    padding: 12px 20px;
+    border: 2px solid #16a085;
+    border-radius: 30px;
+    font-size: 16px;
+    outline: none;
+    display: block;
+    margin: 30px auto 25px auto;
+    transition: 0.3s ease;
+}
+
+#search:focus {
+    border-color: #f39c12;
+}
+
+/* Post Container - Modern Layout */
+.post-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Post Card Styling */
+.post-item {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e0e0e0;
+    position: relative;
+}
+
+.post-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Post Title */
+.post-title {
+    font-size: 1.4em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #000000;
+    transition: color 0.3s ease;
+}
+
+/* Date */
+.post-date {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* Post Summary */
+.post-summary {
+    font-size: 1em;
+    color: #333;
+    flex-grow: 1;
+    margin-bottom: 15px;
+}
+
+/* Read More Arrow */
+.post-read-more {
+    font-size: 1.5em;
+    text-align: right;
+    color: #16a085;
+    transition: color 0.3s ease, transform 0.3s ease;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+
+.post-item:hover .post-title,
+.post-item:hover .post-read-more {
+    color: #f39c12;
+}
+
+.post-read-more:hover {
+    transform: translateX(5px);
+}
+
+/* Ensure space between search bar and posts */
+#posts-container {
+    padding-top: 20px;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    max-height: 80%;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    overflow-y: auto;
+    text-align: left;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+/* Exit Button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #16a085;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: #f39c12;
 }
