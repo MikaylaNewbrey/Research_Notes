@@ -8,6 +8,13 @@
     <script defer src="script.js"></script>
     <style>
         /* ✅ Ensures all images in the gallery are the same size */
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
         .gallery-item {
             width: 250px; /* Adjust as needed */
             height: 250px;
@@ -50,6 +57,28 @@
             font-size: 30px;
             cursor: pointer;
         }
+
+        /* ✅ Filter Buttons */
+        .filter-buttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .filter-buttons button {
+            background: #16a085;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .filter-buttons button.active, .filter-buttons button:hover {
+            background: #f39c12;
+        }
+
     </style>
 </head>
 <body>
@@ -69,23 +98,38 @@
 <section class="gallery-container">
     <h1>Research & Fieldwork Gallery</h1>
 
+    <!-- ✅ Filter Buttons -->
+    <div class="filter-buttons">
+        <button class="list active" data-filter="all">All</button>
+        <button class="list" data-filter="fieldwork">Fieldwork</button>
+        <button class="list" data-filter="research">Research</button>
+        <button class="list" data-filter="nature">Nature</button>
+    </div>
+
     <!-- Images Section -->
     <h2>Images</h2>
     <hr>
     <div class="gallery-grid" id="image-gallery">
-        <!-- ✅ Imgur Images with Lightbox -->
+        <!-- ✅ Imgur Images with Filter Categories -->
         <img 
             src="https://i.imgur.com/Ok2lGQH.jpg" 
             alt="Remus Wellfleet" 
-            class="gallery-item"
+            class="gallery-item fieldwork"
             onclick="openLightbox('https://i.imgur.com/Ok2lGQH.jpg')"
         />
 
         <img 
             src="https://i.imgur.com/YOUR_IMAGE_ID.jpg" 
             alt="Image Description 2" 
-            class="gallery-item"
+            class="gallery-item research"
             onclick="openLightbox('https://i.imgur.com/YOUR_IMAGE_ID.jpg')"
+        />
+
+        <img 
+            src="https://i.imgur.com/YOUR_IMAGE_ID_3.jpg" 
+            alt="Nature Shot" 
+            class="gallery-item nature"
+            onclick="openLightbox('https://i.imgur.com/YOUR_IMAGE_ID_3.jpg')"
         />
 
         <!-- Add more images as needed -->
@@ -130,7 +174,33 @@
     function closeLightbox() {
         document.getElementById("lightbox").style.display = "none";
     }
+
+    /* ✅ Filtering System */
+    document.addEventListener("DOMContentLoaded", function () {
+        const filters = document.querySelectorAll(".list");
+        const images = document.querySelectorAll(".gallery-item");
+
+        filters.forEach(filter => {
+            filter.addEventListener("click", function () {
+                const filterValue = this.getAttribute("data-filter");
+
+                // Remove active class from all filters
+                filters.forEach(f => f.classList.remove("active"));
+                this.classList.add("active");
+
+                // Show or hide images based on category
+                images.forEach(img => {
+                    if (filterValue === "all" || img.classList.contains(filterValue)) {
+                        img.style.display = "block";
+                    } else {
+                        img.style.display = "none";
+                    }
+                });
+            });
+        });
+    });
 </script>
+
 <footer>
     <div class="footer-container">
         <div class="footer-logo">
