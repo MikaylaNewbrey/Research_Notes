@@ -217,7 +217,7 @@ footer {
     border-color: #f39c12;
 }
 
-/* Post Container - Modern Layout */
+/* ✅ Post Container - Restoring Hover Effect */
 .post-container {
     display: flex;
     flex-wrap: wrap;
@@ -226,7 +226,7 @@ footer {
     padding: 20px;
 }
 
-/* Post Card Styling */
+/* ✅ Post Card Styling */
 .post-item {
     background: #ffffff;
     padding: 20px;
@@ -241,9 +241,54 @@ footer {
     position: relative;
 }
 
+/* ✅ Hover Effect Restored */
 .post-item:hover {
+    background-color: #f39c12; /* ✅ Turns Orange on Hover */
+    color: white;
     transform: translateY(-5px);
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ✅ Title and Arrow Change Color */
+.post-item:hover .post-title,
+.post-item:hover .post-read-more {
+    color: white;
+}
+
+/* Post Title */
+.post-title {
+    font-size: 1.4em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #000000;
+    transition: color 0.3s ease;
+}
+
+/* Date */
+.post-date {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* Post Summary */
+.post-summary {
+    font-size: 1em;
+    color: #333;
+    flex-grow: 1;
+    margin-bottom: 15px;
+}
+
+/* Read More Arrow */
+.post-read-more {
+    font-size: 1.5em;
+    text-align: right;
+    color: #16a085;
+    transition: color 0.3s ease, transform 0.3s ease;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
 }
 
 /* Modal Styling */
