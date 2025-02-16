@@ -83,49 +83,51 @@ nav ul li a:active {
     max-width: 1200px;
     margin: 50px auto;
     padding: 20px;
+    gap: 40px; /* ✅ Ensures spacing between text and image */
 }
 
 .about-text {
     flex: 1;
-    padding-right: 40px;
+    padding-right: 20px;
+    max-width: 50%; /* ✅ Prevents text from stretching too much */
 }
 
 .about-image {
     flex: 1;
     text-align: center;
+    max-width: 50%; /* ✅ Prevents image from overlapping */
 }
 
 .about-image img {
-    max-width: 300px; /* ✅ Keeps it at a reasonable size */
+    max-width: 100%;
     height: auto;
     border-radius: 10px;
     display: block;
-    margin: 20px auto;
+    margin: 0 auto;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* ✅ Fixed CTA BUTTON Length & Overlap */
+/* ✅ Fixed CTA BUTTON Alignment & Spacing */
 .cta-buttons {
     display: flex;
-    flex-direction: column; /* Stack buttons by default */
+    flex-wrap: wrap; /* ✅ Prevents overflowing */
     gap: 10px; /* Ensures spacing */
-    max-width: 400px; /* Prevents buttons from stretching too wide */
-    align-items: center; /* Centers buttons */
+    justify-content: flex-start; /* Aligns left */
 }
 
 .cta-button {
-    width: 100%; /* Makes buttons fill the container */
-    min-width: 280px; /* Ensures they don't shrink too much */
+    width: auto; /* ✅ Prevents buttons from stretching too wide */
+    min-width: 220px; /* ✅ Ensures a good width */
     text-align: center;
-    padding: 14px 25px; /* Increased padding for better fit */
+    padding: 12px 20px;
     border: 2px solid #16a085;
     color: white;
     background-color: #16a085;
-    font-size: 18px; /* Slightly larger text */
+    font-size: 16px;
     font-weight: bold;
     transition: 0.3s;
     border-radius: 5px;
-    white-space: nowrap; /* ✅ Prevents text from wrapping */
+    white-space: nowrap; /* ✅ Prevents text wrapping */
 }
 
 .cta-button:hover {
@@ -133,20 +135,7 @@ nav ul li a:active {
     border: 2px solid #f39c12;
 }
 
-/* ✅ Ensures buttons go side-by-side on wider screens */
-@media (min-width: 600px) {
-    .cta-buttons {
-        flex-direction: row; /* Side-by-side */
-        justify-content: flex-start;
-    }
-
-    .cta-button {
-        width: auto; /* Adjusts to text width */
-        min-width: 300px; /* Ensures a reasonable width */
-    }
-}
-
-/* ✅ Responsive Fix for About Page */
+/* ✅ Ensure buttons wrap properly on smaller screens */
 @media (max-width: 900px) {
     .about-container {
         flex-direction: column;
@@ -155,10 +144,19 @@ nav ul li a:active {
 
     .about-text {
         padding-right: 0;
+        max-width: 100%; /* ✅ Ensures text fills container */
     }
 
-    .about-image img {
-        max-width: 100%;
+    .about-image {
+        max-width: 100%; /* ✅ Ensures image resizes properly */
+    }
+
+    .cta-buttons {
+        justify-content: center; /* ✅ Centers buttons */
+    }
+
+    .cta-button {
+        width: 100%; /* ✅ Makes buttons full width on small screens */
     }
 }
 
