@@ -7,25 +7,40 @@
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
     <style>
-        /* ✅ Ensures all images in the gallery are the same size */
+        /* ✅ Masonry Layout */
+        .gallery-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
         .gallery-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
+            column-count: 3;
+            column-gap: 20px;
         }
 
         .gallery-item {
-            width: 250px; /* Adjust as needed */
-            height: 250px;
-            object-fit: cover;
-            border-radius: 10px;
+            width: 100%;
+            margin-bottom: 15px;
+            break-inside: avoid;
             cursor: pointer;
+            border-radius: 10px;
             transition: transform 0.2s ease-in-out;
         }
 
+        .gallery-item img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
         .gallery-item:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
+        }
+
+        iframe {
+            width: 100%;
+            height: 315px;
+            border-radius: 10px;
         }
 
         /* ✅ Lightbox styling */
@@ -79,6 +94,19 @@
             background: #f39c12;
         }
 
+        /* ✅ Responsive Adjustments */
+        @media (max-width: 900px) {
+            .gallery-grid {
+                column-count: 2;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .gallery-grid {
+                column-count: 1;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -103,55 +131,49 @@
         <button class="list active" data-filter="all">All</button>
         <button class="list" data-filter="fieldwork">Fieldwork</button>
         <button class="list" data-filter="research">Research</button>
-        <button class="list" data-filter="nature">Nature</button>
     </div>
 
-    <!-- Images Section -->
-    <h2>Images</h2>
-    <hr>
-    <div class="gallery-grid" id="image-gallery">
+    <!-- ✅ Masonry Gallery -->
+    <div class="gallery-grid" id="gallery">
         <!-- ✅ Imgur Images with Filter Categories -->
-        <img 
-            src="https://i.imgur.com/Ok2lGQH.jpg" 
-            alt="Remus Wellfleet" 
-            class="gallery-item fieldwork"
-            onclick="openLightbox('https://i.imgur.com/Ok2lGQH.jpg')"
-        />
+        <div class="gallery-item fieldwork">
+            <img 
+                src="https://i.imgur.com/Ok2lGQH.jpg" 
+                alt="Remus Wellfleet" 
+                onclick="openLightbox('https://i.imgur.com/Ok2lGQH.jpg')"
+            />
+        </div>
 
-        <img 
-            src="https://i.imgur.com/YOUR_IMAGE_ID.jpg" 
-            alt="Image Description 2" 
-            class="gallery-item research"
-            onclick="openLightbox('https://i.imgur.com/YOUR_IMAGE_ID.jpg')"
-        />
+        <div class="gallery-item research">
+            <img 
+                src="https://i.imgur.com/YOUR_IMAGE_ID.jpg" 
+                alt="Image Description 2" 
+                onclick="openLightbox('https://i.imgur.com/YOUR_IMAGE_ID.jpg')"
+            />
+        </div>
 
-        <img 
-            src="https://i.imgur.com/YOUR_IMAGE_ID_3.jpg" 
-            alt="Nature Shot" 
-            class="gallery-item nature"
-            onclick="openLightbox('https://i.imgur.com/YOUR_IMAGE_ID_3.jpg')"
-        />
+        <div class="gallery-item research">
+            <img 
+                src="https://i.imgur.com/YOUR_IMAGE_ID_3.jpg" 
+                alt="Nature Shot" 
+                onclick="openLightbox('https://i.imgur.com/YOUR_IMAGE_ID_3.jpg')"
+            />
+        </div>
 
-        <!-- Add more images as needed -->
-    </div>
+        <!-- ✅ Videos Now Included in Grid -->
+        <div class="gallery-item fieldwork">
+            <iframe 
+                src="https://drive.google.com/file/d/YOUR_VIDEO_FILE_ID_1/preview" 
+                class="gallery-video">
+            </iframe>
+        </div>
 
-    <!-- Videos Section -->
-    <h2>Videos</h2>
-    <hr>
-    <div class="gallery-grid" id="video-gallery">
-        <iframe 
-            src="https://drive.google.com/file/d/YOUR_VIDEO_FILE_ID_1/preview" 
-            width="640" 
-            height="360" 
-            class="gallery-item">
-        </iframe>
-
-        <iframe 
-            src="https://drive.google.com/file/d/YOUR_VIDEO_FILE_ID_2/preview" 
-            width="640" 
-            height="360" 
-            class="gallery-item">
-        </iframe>
+        <div class="gallery-item research">
+            <iframe 
+                src="https://drive.google.com/file/d/YOUR_VIDEO_FILE_ID_2/preview" 
+                class="gallery-video">
+            </iframe>
+        </div>
     </div>
 </section>
 
@@ -178,7 +200,7 @@
     /* ✅ Filtering System */
     document.addEventListener("DOMContentLoaded", function () {
         const filters = document.querySelectorAll(".list");
-        const images = document.querySelectorAll(".gallery-item");
+        const items = document.querySelectorAll(".gallery-item");
 
         filters.forEach(filter => {
             filter.addEventListener("click", function () {
@@ -188,12 +210,12 @@
                 filters.forEach(f => f.classList.remove("active"));
                 this.classList.add("active");
 
-                // Show or hide images based on category
-                images.forEach(img => {
-                    if (filterValue === "all" || img.classList.contains(filterValue)) {
-                        img.style.display = "block";
+                // Show or hide gallery items based on category
+                items.forEach(item => {
+                    if (filterValue === "all" || item.classList.contains(filterValue)) {
+                        item.style.display = "block";
                     } else {
-                        img.style.display = "none";
+                        item.style.display = "none";
                     }
                 });
             });
