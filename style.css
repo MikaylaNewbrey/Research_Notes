@@ -167,59 +167,49 @@ nav ul li a:active {
 .about-text h1 {
     color: #117a65 !important;
     font-size: 3em !important;
-
-/* ✅ Footer Styling */
-footer {
-    background: #FFFFFF; /* Keeps background white */
-    text-align: center;
-    padding: 20px;
-    border-top: 1px solid #e0e0e0; /* Thin horizontal line */
-    margin-top: auto; /* Pushes footer to bottom */
 }
 
-/* ✅ Footer Logo - Slightly Bigger & Non-Clickable */
+/* ✅ Modernized Footer */
+footer {
+    background: #FFFFFF;
+    padding: 20px;
+    border-top: 1px solid #e0e0e0; /* ✅ Thin horizontal line */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    width: 100%;
+}
+
+/* ✅ Footer Logo (Centered & Properly Sized) */
+.footer-logo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
 .footer-logo img {
-    width: 150px; /* Increased size slightly */
+    width: 100px; /* ✅ Keeps size consistent */
     height: auto;
     opacity: 0.8;
     transition: opacity 0.3s ease-in-out;
-    pointer-events: none; /* Prevents clicking */
 }
 
 .footer-logo img:hover {
     opacity: 1;
 }
 
-/* Responsive Fix */
-@media (max-width: 900px) {
-    .footer-logo img {
-        width: 85px;
-    }
-}
-
-/* ✅ Footer Container (Keeps Logo Centered, Icons Right) */
-.footer-container {
-    display: flex;
-    width: 90%;
-    max-width: 1200px;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-
-/* ✅ Social Links Positioned to the Right */
+/* ✅ Social Links (Right-Aligned, Smaller) */
 .social-links {
-    position: absolute;
-    right: 10;
+    flex: 1;
     display: flex;
-    gap: 12px;
-    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
 }
 
-/* ✅ Smaller Social Icons */
 .social-links a img {
-    width: 20px; /* ✅ Smaller icons */
+    width: 24px; /* ✅ Smaller, more balanced */
     height: auto;
     transition: opacity 0.3s ease-in-out;
 }
@@ -228,19 +218,29 @@ footer {
     opacity: 0.7;
 }
 
-/* ✅ Responsive Fix */
+/* ✅ Responsive Footer Fix */
 @media (max-width: 900px) {
-    .footer-logo img {
-        width: 85px;
+    footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-logo {
+        order: 1;
+        margin-bottom: 10px;
+    }
+
+    .social-links {
+        order: 2;
+        justify-content: center;
     }
 
     .social-links a img {
-        width: 18px; /* ✅ Adjusts icon size for mobile */
+        width: 20px; /* ✅ Adjusts icon size for mobile */
     }
 }
 
-
-/* Search Bar - Modernized */
+/* Search Bar */
 #search {
     width: 90%;
     max-width: 600px;
@@ -276,57 +276,13 @@ footer {
 /* ✅ Hover Effect (Only Title & Arrow Turn Orange) */
 .post-item:hover .post-title,
 .post-item:hover .post-read-more {
-    color: #f39c12; /* ✅ Turns Orange on Hover */
-}
-
-/* ✅ Ensures Background Stays White */
-.post-item:hover {
-    background-color: #ffffff;
-    transform: translateY(-5px);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Post Title */
-.post-title {
-    font-size: 1.4em;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: #000000;
-    transition: color 0.3s ease;
-}
-
-/* Date */
-.post-date {
-    font-size: 0.9em;
-    color: #666;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-/* Post Summary */
-.post-summary {
-    font-size: 1em;
-    color: #333;
-    flex-grow: 1;
-    margin-bottom: 15px;
-}
-
-/* Read More Arrow */
-.post-read-more {
-    font-size: 1.5em;
-    text-align: right;
-    color: #16a085;
-    transition: color 0.3s ease, transform 0.3s ease;
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
+    color: #f39c12;
 }
 
 /* ✅ Read More Arrow Moves Slightly on Hover */
 .post-item:hover .post-read-more {
     transform: translateX(5px);
 }
-
 
 /* Modal Styling */
 .modal {
