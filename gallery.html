@@ -74,25 +74,26 @@
         }
 
         /* ✅ Filters as Text Options */
-        .filter-options {
-            text-align: center;
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
+.filter-options {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-family: 'Nunito', sans-serif; /* ✅ Ensures Nunito is used */
+}
 
-        .filter-options span {
-            cursor: pointer;
-            padding: 0 15px;
-            color: #16a085;
-            transition: 0.3s ease-in-out;
-        }
+.filter-options span {
+    cursor: pointer;
+    padding: 0 15px;
+    color: #16a085;
+    transition: 0.3s ease-in-out;
+    font-family: 'Nunito', sans-serif; /* ✅ Apply Nunito to the filter text */
+}
 
-        .filter-options span:hover,
-        .filter-options span.active {
-            color: #f39c12;
-        }
-
+.filter-options span:hover,
+.filter-options span.active {
+    color: #f39c12;
+}
         /* ✅ Responsive Adjustments */
         @media (max-width: 900px) {
             .gallery-grid {
