@@ -1,25 +1,26 @@
 ---
-title: "DNA Extraction from Marine Samples"
-date: 2025-02-14
-keywords: ["DNA", "Extraction", "Marine", "Seawater"]
-project: "Microbial DNA Analysis in Monterey Bay"
-experiment_type: "Laboratory Analysis"
-location: "Marine Research Lab"
-collaborators: ["Dr. Smith", "Alex Turner"]
-equipment: ["Qiagen DNeasy Kit", "Centrifuge", "Seawater samples (50mL)"]
-status: "In Progress"
+title: "Brazil GT-Seq Round 2: Part 1"
+date: 2025-02-21
+keywords:
+  - PCR
+  - GT-Seq
+project: Brazil Green BSR
+experiment_type: Laboratory
+location: MEC Lab
+collaborators: 
+equipment:
+  - Centrifuge
+  - Thermocycler
+  - Thermomixer
+status: In Progress
 ---
+--- title: "Brazil GT-Seq Round 2: Part 1" date: "2025-02-21" summary: "A brief description of this notebook entry." ---
+# Brazil GT-Seq Round 2  
 
-# DNA Extraction from Marine Samples  
-
-## 📝 Notes  
-- **Samples collected at 3 locations**: Site A, Site B, and Site C.  
-- Initial concentration measurements suggest **low DNA yield at Site B**.  
-- PCR amplification results were **inconclusive**, requiring re-extraction.  
-- Unexpected **contamination detected** in Site C sample.  
-
-## 📌 Next Steps  
-- [ ] Perform a second DNA extraction for Site B samples  
-- [ ] Run **gel electrophoresis** to verify PCR results  
-- [ ] Filter seawater samples again to remove potential contaminants  
-- [ ] Meet with Dr. Smith on **2025-02-16** to discuss protocol changes  
+## Notes  
+- Plates prepped from this point forward are using 204 Loci pool from plates CM_1B ⤏ CM_3B
+### 02/21/2025
+- Prepped plates BR_CM_13 ⤏ BR_CM_15
+##  Going Forward  
+1. Spot check random PCR 2 product on FA on Monday 2/24
+2. 
