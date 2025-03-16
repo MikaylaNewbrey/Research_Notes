@@ -73,34 +73,29 @@ async function loadMarkdownFiles(folder, containerId, type) {
 /*******************************************
  * 3. Fixing Notebook Modal (Ensuring It Opens)
  *******************************************/
-function openPost(title, content, type) {
-  let modal = document.getElementById("post-modal");
-  let modalTitle = document.getElementById("modal-title");
-  let modalContent = document.getElementById("modal-content");
+function openPost(title, content) {
+    let modal = document.getElementById("post-modal");
+    let modalTitle = document.getElementById("modal-title");
+    let modalContent = document.getElementById("modal-content");
 
-  if (!modal) {
-    console.error("Modal not found in the document.");
-    return;
-  }
+    if (!modal) {
+        console.error("Modal not found in the document.");
+        return;
+    }
 
-  if (!modalTitle || !modalContent) {
-    console.error("Modal elements missing in the HTML.");
-    return;
-  }
+    modalTitle.textContent = title;
 
-  // ✅ Convert Markdown to HTML (Fix for `marked.parse`)
-  modalTitle.textContent = title;
-  modalContent.innerHTML = marked.parse(content);
+    // ✅ Extract Metadata and Remove It from Content
+    let cleanedContent = content.replace(/---[\s\S]*?---/, ""); // Remove YAML metadata block
+    modalContent.innerHTML = marked.parse(cleanedContent.trim());
 
-  // ✅ Ensure Modal Opens
-  modal.style.display = "flex";
-  modal.style.justifyContent = "center";
-  modal.style.alignItems = "center";
-  modal.style.zIndex = "1000";
-  modal.scrollTop = 0;
-
-  console.log(`${type === "notebook" ? "Notebook entry" : "Update"} opened:`, title);
+    modal.style.display = "flex";
+    modal.style.justifyContent = "center";
+    modal.style.alignItems = "center";
+    modal.style.zIndex = "1000";
+    modal.focus();
 }
+
 
 // ✅ Close Post Modal
 function closePost() {
