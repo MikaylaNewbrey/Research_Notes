@@ -28,7 +28,7 @@ async function loadMarkdownFiles(folder, containerId) {
     container.innerHTML = "";
 
     if (files.length === 0) {
-      container.innerHTML = "<p>No posts found.</p>";
+      container.innerHTML = "<p>No entries found.</p>";
       return;
     }
 
@@ -46,7 +46,7 @@ async function loadMarkdownFiles(folder, containerId) {
         let date = dateMatch ? dateMatch[1] : "Unknown Date";
         let summary = summaryMatch ? summaryMatch[1] : "No summary available.";
 
-        // Create post item
+        // Create entry item
         let entryDiv = document.createElement("div");
         entryDiv.classList.add("post-item");
         entryDiv.dataset.title = title;
@@ -59,13 +59,13 @@ async function loadMarkdownFiles(folder, containerId) {
           <span class="post-read-more">→</span>
         `;
 
-        entryDiv.addEventListener("click", () => openPost(title, markdownContent)); // ✅ Fixing modal event listener
+        entryDiv.addEventListener("click", () => openPost(title, markdownContent));
         container.appendChild(entryDiv);
       }
     }
   } catch (error) {
     console.error("Error loading Markdown files:", error);
-    container.innerHTML = `<p>Error loading posts. Check console.</p>`;
+    container.innerHTML = `<p>Error loading entries. Check console.</p>`;
   }
 }
 
@@ -89,33 +89,40 @@ function openPost(title, content) {
   modal.style.justifyContent = "center";
   modal.style.alignItems = "center";
   modal.style.zIndex = "1000";
-  modal.focus();
+  modal.scrollTop = 0; // ✅ Fixes modal scroll reset
 }
 
-// Close Post Modal
+// ✅ Close Post Modal
 function closePost() {
   let modal = document.getElementById("post-modal");
   if (modal) {
     modal.style.display = "none";
+    document.body.style.overflow = "auto"; // ✅ Fixes scroll lock
   }
 }
 
 /*******************************************
- * 4. Lightbox Functionality for Manual Gallery
+ * 4. Lightbox Functionality for Gallery (Fixing Video)
  *******************************************/
 function openLightboxWithImage(imageUrl) {
     let lightbox = document.getElementById("lightbox");
     let lightboxImg = document.getElementById("lightbox-img");
     let lightboxVideo = document.getElementById("lightbox-video");
 
-    lightboxImg.src = imageUrl;
-    lightboxImg.style.display = "block";
-    lightboxVideo.style.display = "none";
+    if (imageUrl.endsWith(".mp4") || imageUrl.includes("drive.google.com")) {
+        lightboxImg.style.display = "none";
+        lightboxVideo.style.display = "block";
+        lightboxVideo.src = imageUrl;
+    } else {
+        lightboxVideo.style.display = "none";
+        lightboxImg.style.display = "block";
+        lightboxImg.src = imageUrl;
+    }
 
     lightbox.style.display = "flex";
 }
 
-// Close lightbox
+// ✅ Close Lightbox
 function closeLightbox() {
     let lightbox = document.getElementById("lightbox");
     let lightboxImg = document.getElementById("lightbox-img");
@@ -127,11 +134,11 @@ function closeLightbox() {
 }
 
 /*******************************************
- * 5. Gallery Filtering & Masonry Layout
+ * 5. Gallery Filtering & Masonry Layout (Fixed Display)
  *******************************************/
 document.addEventListener("DOMContentLoaded", function () {
     const filters = document.querySelectorAll(".list");
-    const images = document.querySelectorAll(".gallery-item");
+    const items = document.querySelectorAll(".gallery-item");
 
     filters.forEach(filter => {
         filter.addEventListener("click", function () {
@@ -141,12 +148,12 @@ document.addEventListener("DOMContentLoaded", function () {
             filters.forEach(f => f.classList.remove("active"));
             this.classList.add("active");
 
-            // Show or hide images based on category
-            images.forEach(img => {
-                if (filterValue === "all" || img.classList.contains(filterValue)) {
-                    img.style.display = "block";
+            // Show or hide gallery items based on category
+            items.forEach(item => {
+                if (filterValue === "all" || item.classList.contains(filterValue)) {
+                    item.style.display = "inline-block"; // ✅ Fix Masonry Layout
                 } else {
-                    img.style.display = "none";
+                    item.style.display = "none";
                 }
             });
         });
