@@ -8,7 +8,7 @@ body {
     color: #000000;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* ✅ Ensures footer stays at bottom */
+    min-height: 100vh; /*  Ensures footer stays at bottom */
 }
 
 /* Ensure all text elements use Open Sans */
@@ -16,7 +16,7 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-/* ✅ Apply Nunito to Navigation, H1, and Filter Options */
+/* Apply Nunito to Navigation, H1, and Filter Options */
 nav ul li a,
 h1,
 .filter-options {
@@ -68,7 +68,7 @@ nav ul li a:active {
 
 
 
-/* ✅ Splash Page Styling */
+/* Splash Page Styling */
 .splash-container {
     position: relative;
     width: 100%;
@@ -79,7 +79,7 @@ nav ul li a:active {
     justify-content: center;
 }
 
-/* ✅ Video Background */
+/* Video Background */
 .splash-video {
     position: absolute;
     top: 50%;
@@ -91,18 +91,18 @@ nav ul li a:active {
     z-index: -1; /* Sends it behind the text */
 }
 
-/* ✅ Centered Splash Text */
-.splash-text {
+/* Centered Splash Text 
+ .splash-text {
     position: relative;
     z-index: 1;
-    background: rgba(255, 255, 255, 0.7); /* Light overlay for readability */
+    background: rgba(255, 255, 255, 0.7); /* Light overlay for readability 
     padding: 20px 40px;
     border-radius: 10px;
     font-size: 2em;
     font-weight: bold;
     color: #000000;
     text-align: center;
-}
+} */
 
 
 /* About Page */
