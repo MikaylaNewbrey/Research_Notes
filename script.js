@@ -3,17 +3,17 @@
  *******************************************/
 document.addEventListener("DOMContentLoaded", function () {
   if (document.getElementById("entries")) {
-    loadMarkdownFiles("Notebook", "entries");
+    loadMarkdownFiles("Notebook", "entries", "notebook");
   }
   if (document.getElementById("posts-container")) {
-    loadMarkdownFiles("Posts", "posts-container");
+    loadMarkdownFiles("Posts", "posts-container", "updates");
   }
 });
 
 /*******************************************
  * 2. Load Markdown Files from GitHub (Fixing Modal)
  *******************************************/
-async function loadMarkdownFiles(folder, containerId) {
+async function loadMarkdownFiles(folder, containerId, type) {
   let container = document.getElementById(containerId);
   container.innerHTML = "<p>Loading...</p>";
 
@@ -28,7 +28,7 @@ async function loadMarkdownFiles(folder, containerId) {
     container.innerHTML = "";
 
     if (files.length === 0) {
-      container.innerHTML = "<p>No entries found.</p>";
+      container.innerHTML = `<p>No ${type === "notebook" ? "notebook entries" : "updates"} found.</p>`;
       return;
     }
 
@@ -51,6 +51,7 @@ async function loadMarkdownFiles(folder, containerId) {
         entryDiv.classList.add("post-item");
         entryDiv.dataset.title = title;
         entryDiv.dataset.content = markdownContent;
+        entryDiv.dataset.type = type; // ✅ Identifies if it’s a notebook entry or update
 
         entryDiv.innerHTML = `
           <h2 class="post-title">${title}</h2>
@@ -59,20 +60,20 @@ async function loadMarkdownFiles(folder, containerId) {
           <span class="post-read-more">→</span>
         `;
 
-        entryDiv.addEventListener("click", () => openPost(title, markdownContent));
+        entryDiv.addEventListener("click", () => openPost(title, markdownContent, type)); 
         container.appendChild(entryDiv);
       }
     }
   } catch (error) {
-    console.error("Error loading Markdown files:", error);
-    container.innerHTML = `<p>Error loading entries. Check console.</p>`;
+    console.error(`Error loading ${type === "notebook" ? "notebook entries" : "updates"}:`, error);
+    container.innerHTML = `<p>Error loading ${type === "notebook" ? "notebook entries" : "updates"}. Check console.</p>`;
   }
 }
 
 /*******************************************
  * 3. Fixing Notebook Modal (Ensuring It Opens)
  *******************************************/
-function openPost(title, content) {
+function openPost(title, content, type) {
   let modal = document.getElementById("post-modal");
   let modalTitle = document.getElementById("modal-title");
   let modalContent = document.getElementById("modal-content");
@@ -82,7 +83,6 @@ function openPost(title, content) {
     return;
   }
 
-  // ✅ Ensure Modal Exists in HTML
   if (!modalTitle || !modalContent) {
     console.error("Modal elements missing in the HTML.");
     return;
@@ -97,7 +97,9 @@ function openPost(title, content) {
   modal.style.justifyContent = "center";
   modal.style.alignItems = "center";
   modal.style.zIndex = "1000";
-  modal.scrollTop = 0; // ✅ Fix scroll reset
+  modal.scrollTop = 0;
+
+  console.log(`${type === "notebook" ? "Notebook entry" : "Update"} opened:`, title);
 }
 
 // ✅ Close Post Modal
@@ -105,65 +107,6 @@ function closePost() {
   let modal = document.getElementById("post-modal");
   if (modal) {
     modal.style.display = "none";
-    document.body.style.overflow = "auto"; // ✅ Fixes scroll lock
+    document.body.style.overflow = "auto"; 
   }
 }
-
-/*******************************************
- * 4. Lightbox Functionality for Gallery (Fixing Video)
- *******************************************/
-function openLightboxWithImage(imageUrl) {
-    let lightbox = document.getElementById("lightbox");
-    let lightboxImg = document.getElementById("lightbox-img");
-    let lightboxVideo = document.getElementById("lightbox-video");
-
-    if (imageUrl.endsWith(".mp4") || imageUrl.includes("drive.google.com")) {
-        lightboxImg.style.display = "none";
-        lightboxVideo.style.display = "block";
-        lightboxVideo.src = imageUrl;
-    } else {
-        lightboxVideo.style.display = "none";
-        lightboxImg.style.display = "block";
-        lightboxImg.src = imageUrl;
-    }
-
-    lightbox.style.display = "flex";
-}
-
-// ✅ Close Lightbox
-function closeLightbox() {
-    let lightbox = document.getElementById("lightbox");
-    let lightboxImg = document.getElementById("lightbox-img");
-    let lightboxVideo = document.getElementById("lightbox-video");
-
-    lightbox.style.display = "none";
-    lightboxImg.src = "";
-    lightboxVideo.src = "";
-}
-
-/*******************************************
- * 5. Gallery Filtering & Masonry Layout (Fixed Display)
- *******************************************/
-document.addEventListener("DOMContentLoaded", function () {
-    const filters = document.querySelectorAll(".list");
-    const items = document.querySelectorAll(".gallery-item");
-
-    filters.forEach(filter => {
-        filter.addEventListener("click", function () {
-            const filterValue = this.getAttribute("data-filter");
-
-            // Remove active class from all filters
-            filters.forEach(f => f.classList.remove("active"));
-            this.classList.add("active");
-
-            // Show or hide gallery items based on category
-            items.forEach(item => {
-                if (filterValue === "all" || item.classList.contains(filterValue)) {
-                    item.style.display = "inline-block"; // ✅ Fix Masonry Layout
-                } else {
-                    item.style.display = "none";
-                }
-            });
-        });
-    });
-});
