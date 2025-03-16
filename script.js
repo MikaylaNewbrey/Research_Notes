@@ -70,7 +70,7 @@ async function loadMarkdownFiles(folder, containerId) {
 }
 
 /*******************************************
- * 3. Fixing Notebook Modal
+ * 3. Fixing Notebook Modal (Ensuring It Opens)
  *******************************************/
 function openPost(title, content) {
   let modal = document.getElementById("post-modal");
@@ -82,14 +82,22 @@ function openPost(title, content) {
     return;
   }
 
+  // ✅ Ensure Modal Exists in HTML
+  if (!modalTitle || !modalContent) {
+    console.error("Modal elements missing in the HTML.");
+    return;
+  }
+
+  // ✅ Convert Markdown to HTML (Fix for `marked.parse`)
   modalTitle.textContent = title;
   modalContent.innerHTML = marked.parse(content);
 
+  // ✅ Ensure Modal Opens
   modal.style.display = "flex";
   modal.style.justifyContent = "center";
   modal.style.alignItems = "center";
   modal.style.zIndex = "1000";
-  modal.scrollTop = 0; // ✅ Fixes modal scroll reset
+  modal.scrollTop = 0; // ✅ Fix scroll reset
 }
 
 // ✅ Close Post Modal
