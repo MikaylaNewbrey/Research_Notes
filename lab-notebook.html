@@ -13,13 +13,24 @@
         <li><a href="/Research_Notes/index.html">HOME</a></li>
         <li><a href="/Research_Notes/about.html">ABOUT</a></li>
         <li><a href="/Research_Notes/lab-notebook.html">NOTEBOOK</a></li>
-        <li><a href="/Research_Notes/posts.html">UPDATES</a></li> <!-- Change 'UPDATES' to your preferred name -->
+        <li><a href="/Research_Notes/posts.html">UPDATES</a></li> 
         <li><a href="/Research_Notes/gallery.html">GALLERY</a></li>
     </ul>
 </nav>
-    <h1>Lab Notebook</h1>
-    <input type="text" id="search" placeholder="Search by keyword or date" onkeyup="filterEntries()">
-    <div id="entries"></div>
+
+<h1>Lab Notebook</h1>
+<input type="text" id="search" placeholder="Search by keyword or date" onkeyup="filterEntries()">
+<div id="entries"></div>
+
+<!-- ✅ ADDED MISSING MODAL -->
+<div id="post-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closePost()">&times;</span>
+        <h2 id="modal-title"></h2>
+        <div id="modal-content"></div>
+    </div>
+</div>
+
 <footer>
     <div class="footer-container">
         <div class="footer-logo">
